@@ -1,0 +1,921 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Flutter – Complete Learning Guide</title>
+    <style>
+      :root {
+        --flutter: #54c5f8;
+        --dark: #0a0f1e;
+        --mid: #0d1425;
+        --accent: #152035;
+        --text: #e0e0e0;
+        --code-bg: #06101e;
+        --green: #56d364;
+        --blue: #79c0ff;
+        --orange: #ffa657;
+        --pink: #ff7b72;
+        --purple: #d2a8ff;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: var(--dark);
+        color: var(--text);
+        line-height: 1.75;
+      }
+      header {
+        background: linear-gradient(135deg, #0a0f1e, #0d1a35, #061828);
+        border-bottom: 4px solid var(--flutter);
+        padding: 60px 40px 50px;
+        text-align: center;
+      }
+      .lang-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #54c5f8, #0288d1);
+        color: #fff;
+        font-size: 2.4rem;
+        font-weight: 900;
+        padding: 12px 28px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+      }
+      header h1 {
+        font-size: 2.4rem;
+        color: #fff;
+        font-weight: 800;
+        margin-bottom: 10px;
+      }
+      header p {
+        color: #7a9db0;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      nav.breadcrumb {
+        background: #0d1425;
+        border-bottom: 1px solid #152035;
+        padding: 14px 24px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      nav.breadcrumb a {
+        color: #54c5f8;
+        text-decoration: none;
+        font-size: 0.88rem;
+      }
+      nav.breadcrumb span {
+        color: #333;
+        font-size: 0.88rem;
+      }
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+      }
+      .toc {
+        background: var(--mid);
+        border: 1px solid var(--accent);
+        border-left: 5px solid var(--flutter);
+        border-radius: 10px;
+        padding: 28px 32px;
+        margin-bottom: 48px;
+      }
+      .toc h2 {
+        color: var(--flutter);
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+      }
+      .toc ol {
+        columns: 2;
+        column-gap: 40px;
+        padding-left: 20px;
+      }
+      .toc li {
+        margin-bottom: 6px;
+      }
+      .toc a {
+        color: #79c0ff;
+        text-decoration: none;
+        font-size: 0.92rem;
+      }
+      .toc a:hover {
+        color: var(--flutter);
+      }
+      section {
+        margin-bottom: 64px;
+      }
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 24px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid var(--accent);
+      }
+      .section-num {
+        background: var(--flutter);
+        color: #fff;
+        font-size: 0.85rem;
+        font-weight: 800;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .section-header h2 {
+        font-size: 1.55rem;
+        color: #fff;
+        font-weight: 700;
+      }
+      p {
+        margin-bottom: 14px;
+        color: #ccc;
+      }
+      h3 {
+        color: var(--flutter);
+        font-size: 1.1rem;
+        margin: 28px 0 10px;
+      }
+      pre {
+        background: var(--code-bg);
+        border: 1px solid #152035;
+        border-left: 4px solid var(--flutter);
+        border-radius: 8px;
+        padding: 20px 24px;
+        overflow-x: auto;
+        margin: 16px 0 24px;
+        font-size: 0.87rem;
+        line-height: 1.6;
+      }
+      code {
+        font-family: "Fira Code", "Cascadia Code", Consolas, monospace;
+      }
+      p code,
+      li code {
+        background: #0d1a2e;
+        color: var(--orange);
+        padding: 2px 7px;
+        border-radius: 4px;
+        font-size: 0.88em;
+      }
+      .kw {
+        color: var(--pink);
+      }
+      .str {
+        color: var(--green);
+      }
+      .num {
+        color: var(--orange);
+      }
+      .cmt {
+        color: #3a5570;
+        font-style: italic;
+      }
+      .fn {
+        color: var(--blue);
+      }
+      .cls {
+        color: var(--purple);
+      }
+      .op {
+        color: var(--pink);
+      }
+      .type {
+        color: #54c5f8;
+      }
+      .widget {
+        color: #ffd700;
+      }
+      .tip,
+      .warning,
+      .info {
+        border-radius: 8px;
+        padding: 16px 20px;
+        margin: 20px 0;
+        font-size: 0.93rem;
+      }
+      .tip {
+        background: #0d2818;
+        border-left: 4px solid var(--green);
+      }
+      .warning {
+        background: #2d1b00;
+        border-left: 4px solid var(--orange);
+      }
+      .info {
+        background: #0d1f35;
+        border-left: 4px solid var(--blue);
+      }
+      .tip strong {
+        color: var(--green);
+      }
+      .warning strong {
+        color: var(--orange);
+      }
+      .info strong {
+        color: var(--blue);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 0.9rem;
+      }
+      th {
+        background: #152035;
+        color: #54c5f8;
+        padding: 10px 14px;
+        text-align: left;
+      }
+      td {
+        padding: 9px 14px;
+        border-bottom: 1px solid #152035;
+        color: #ccc;
+      }
+      tr:nth-child(even) td {
+        background: #0d142555;
+      }
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 16px;
+        margin: 20px 0;
+      }
+      .card {
+        background: var(--mid);
+        border: 1px solid var(--accent);
+        border-radius: 10px;
+        padding: 18px;
+      }
+      .card h4 {
+        color: #54c5f8;
+        margin-bottom: 8px;
+      }
+      .card p {
+        font-size: 0.87rem;
+        margin: 0;
+      }
+      ul,
+      ol {
+        padding-left: 22px;
+        margin-bottom: 14px;
+        color: #ccc;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+      .guide-nav {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding-top: 32px;
+        border-top: 1px solid var(--accent);
+        margin-top: 40px;
+      }
+      .guide-nav a {
+        background: var(--mid);
+        border: 1px solid var(--accent);
+        border-radius: 8px;
+        padding: 12px 20px;
+        text-decoration: none;
+        color: #aaa;
+        font-size: 0.88rem;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .guide-nav a:hover {
+        border-color: #54c5f8;
+        color: #54c5f8;
+      }
+      footer {
+        text-align: center;
+        padding: 30px;
+        color: #445;
+        font-size: 0.85rem;
+        border-top: 1px solid #152035;
+      }
+      footer a {
+        color: #54c5f8;
+        text-decoration: none;
+        margin: 0 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="lang-badge">🐦 Flutter</div>
+      <h1>Flutter – Complete Learning Guide</h1>
+      <p>
+        Build beautiful, natively compiled applications for mobile, web, and
+        desktop from a single codebase.
+      </p>
+    </header>
+    <nav class="breadcrumb">
+      <a href="/Users/macbookprom1/Documents/Personal/FlutterDart/index.html"
+        >🏠 Hub</a
+      ><span>›</span><span>Flutter Guide</span>
+      <span style="margin-left: auto; display: flex; gap: 12px">
+        ><a href="dart-guide.html">🎯 Dart</a
+        ><a href="api-guide.html">🔌 API</a>
+      </span>
+    </nav>
+    <div class="container">
+      <div class="toc">
+        <h2>📋 Table of Contents</h2>
+        <ol>
+          <li><a href="#intro">What is Flutter?</a></li>
+          <li><a href="#widgets">Widgets – Everything is a Widget</a></li>
+          <li><a href="#layout">Layout Widgets</a></li>
+          <li><a href="#stateful">Stateful vs Stateless</a></li>
+          <li><a href="#state-mgmt">State Management</a></li>
+          <li><a href="#navigation">Navigation & Routing</a></li>
+          <li><a href="#forms">Forms & Input</a></li>
+          <li><a href="#http">HTTP & APIs</a></li>
+          <li><a href="#storage">Local Storage</a></li>
+          <li><a href="#animations">Animations</a></li>
+          <li><a href="#themes">Themes & Styling</a></li>
+          <li><a href="#architecture">Architecture Patterns</a></li>
+        </ol>
+      </div>
+
+      <section id="intro">
+        <div class="section-header">
+          <div class="section-num">1</div>
+          <h2>What is Flutter?</h2>
+        </div>
+        <p>
+          Flutter is Google's UI toolkit for building natively compiled,
+          beautiful apps for mobile (iOS & Android), web, and desktop from a
+          single Dart codebase. It renders its own pixels using the
+          Skia/Impeller engine — no native UI components needed.
+        </p>
+        <div class="card-grid">
+          <div class="card">
+            <h4>📱 Mobile</h4>
+            <p>
+              iOS & Android from one codebase. Native performance via AOT
+              compilation.
+            </p>
+          </div>
+          <div class="card">
+            <h4>🌐 Web</h4>
+            <p>Compiles to JavaScript/WASM for browser deployment.</p>
+          </div>
+          <div class="card">
+            <h4>🖥️ Desktop</h4>
+            <p>macOS, Windows, Linux native apps from the same code.</p>
+          </div>
+          <div class="card">
+            <h4>🎨 Custom UI</h4>
+            <p>
+              Pixel-perfect rendering. Not limited by platform UI components.
+            </p>
+          </div>
+        </div>
+        <pre><code><span class="cmt">// Every Flutter app starts here</span>
+<span class="kw">import</span> <span class="str">'package:flutter/material.dart'</span>;
+
+<span class="kw">void</span> <span class="fn">main</span>() => <span class="fn">runApp</span>(<span class="kw">const</span> <span class="cls">MyApp</span>());
+
+<span class="kw">class</span> <span class="cls">MyApp</span> <span class="kw">extends</span> <span class="cls">StatelessWidget</span> {
+  <span class="kw">const</span> <span class="cls">MyApp</span>({<span class="kw">super</span>.key});
+  <span class="kw">@override</span>
+  <span class="cls">Widget</span> <span class="fn">build</span>(<span class="cls">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="cls">MaterialApp</span>(
+      title: <span class="str">'My App'</span>,
+      theme: <span class="cls">ThemeData</span>(colorSchemeSeed: <span class="cls">Colors</span>.blue),
+      home: <span class="kw">const</span> <span class="cls">HomeScreen</span>(),
+    );
+  }
+}
+</code></pre>
+      </section>
+
+      <section id="widgets">
+        <div class="section-header">
+          <div class="section-num">2</div>
+          <h2>Widgets — Everything is a Widget</h2>
+        </div>
+        <p>
+          In Flutter, <em>everything</em> is a widget — buttons, text, images,
+          padding, alignment, even the app itself. Widgets are immutable
+          descriptions of UI; Flutter re-renders them efficiently when state
+          changes.
+        </p>
+        <pre><code><span class="cmt">// Common widgets</span>
+<span class="cls">Text</span>(<span class="str">'Hello Flutter'</span>, style: <span class="cls">TextStyle</span>(fontSize: <span class="num">24</span>, fontWeight: <span class="cls">FontWeight</span>.bold))
+
+<span class="cls">ElevatedButton</span>(
+  onPressed: () => <span class="fn">print</span>(<span class="str">'Pressed!'</span>),
+  child: <span class="kw">const</span> <span class="cls">Text</span>(<span class="str">'Click Me'</span>),
+)
+
+<span class="cls">Image</span>.<span class="fn">network</span>(<span class="str">'https://example.com/img.jpg'</span>, width: <span class="num">200</span>)
+<span class="cls">Image</span>.<span class="fn">asset</span>(<span class="str">'assets/logo.png'</span>)
+
+<span class="cls">Icon</span>(<span class="cls">Icons</span>.star, color: <span class="cls">Colors</span>.amber, size: <span class="num">32</span>)
+
+<span class="cls">TextField</span>(
+  decoration: <span class="cls">InputDecoration</span>(labelText: <span class="str">'Name'</span>, hintText: <span class="str">'Enter name'</span>),
+  onChanged: (val) => <span class="fn">print</span>(val),
+)
+
+<span class="cls">CircularProgressIndicator</span>()   <span class="cmt">// loading spinner</span>
+<span class="cls">LinearProgressIndicator</span>()
+
+<span class="cls">Divider</span>()
+<span class="cls">SizedBox</span>(height: <span class="num">16</span>)          <span class="cmt">// spacing</span>
+<span class="cls">Spacer</span>()                      <span class="cmt">// flexible space in Flex layouts</span>
+</code></pre>
+        <h3>Decoration & Styling</h3>
+        <pre><code><span class="cls">Container</span>(
+  width: <span class="num">200</span>,
+  height: <span class="num">100</span>,
+  padding: <span class="kw">const</span> <span class="cls">EdgeInsets</span>.all(<span class="num">16</span>),
+  margin: <span class="kw">const</span> <span class="cls">EdgeInsets</span>.symmetric(horizontal: <span class="num">24</span>),
+  decoration: <span class="cls">BoxDecoration</span>(
+    color: <span class="cls">Colors</span>.blue.shade100,
+    borderRadius: <span class="cls">BorderRadius</span>.circular(<span class="num">12</span>),
+    boxShadow: [<span class="cls">BoxShadow</span>(blurRadius: <span class="num">8</span>, color: <span class="cls">Colors</span>.black26)],
+    gradient: <span class="kw">const</span> <span class="cls">LinearGradient</span>(colors: [<span class="cls">Colors</span>.blue, <span class="cls">Colors</span>.purple]),
+  ),
+  child: <span class="kw">const</span> <span class="cls">Text</span>(<span class="str">'Styled Box'</span>),
+)
+</code></pre>
+      </section>
+
+      <section id="layout">
+        <div class="section-header">
+          <div class="section-num">3</div>
+          <h2>Layout Widgets</h2>
+        </div>
+        <pre><code><span class="cmt">// Column — vertical stack</span>
+<span class="cls">Column</span>(
+  mainAxisAlignment: <span class="cls">MainAxisAlignment</span>.center,
+  crossAxisAlignment: <span class="cls">CrossAxisAlignment</span>.start,
+  children: [<span class="cls">Text</span>(<span class="str">'Item 1'</span>), <span class="cls">Text</span>(<span class="str">'Item 2'</span>)],
+)
+
+<span class="cmt">// Row — horizontal</span>
+<span class="cls">Row</span>(
+  mainAxisAlignment: <span class="cls">MainAxisAlignment</span>.spaceBetween,
+  children: [<span class="cls">Icon</span>(<span class="cls">Icons</span>.home), <span class="cls">Text</span>(<span class="str">'Home'</span>)],
+)
+
+<span class="cmt">// Stack — overlapping</span>
+<span class="cls">Stack</span>(
+  children: [
+    <span class="cls">Image</span>.<span class="fn">asset</span>(<span class="str">'bg.png'</span>),
+    <span class="cls">Positioned</span>(top: <span class="num">16</span>, left: <span class="num">16</span>, child: <span class="cls">Text</span>(<span class="str">'Overlay'</span>)),
+  ],
+)
+
+<span class="cmt">// Flexible & Expanded — fill remaining space</span>
+<span class="cls">Row</span>(children: [
+  <span class="cls">Expanded</span>(child: <span class="cls">Text</span>(<span class="str">'Takes remaining width'</span>)),
+  <span class="cls">Icon</span>(<span class="cls">Icons</span>.arrow_forward),
+])
+
+<span class="cmt">// GridView</span>
+<span class="cls">GridView</span>.count(
+  crossAxisCount: <span class="num">2</span>,
+  children: <span class="cls">List</span>.generate(<span class="num">10</span>, (i) => <span class="cls">Card</span>(child: <span class="cls">Text</span>(<span class="str">'$i'</span>))),
+)
+
+<span class="cmt">// ListView — scrollable list</span>
+<span class="cls">ListView</span>.builder(
+  itemCount: items.length,
+  itemBuilder: (ctx, i) => <span class="cls">ListTile</span>(
+    leading: <span class="cls">Icon</span>(<span class="cls">Icons</span>.star),
+    title: <span class="cls">Text</span>(items[i]),
+    onTap: () {},
+  ),
+)
+
+<span class="cmt">// Wrap — like Row but wraps to next line</span>
+<span class="cls">Wrap</span>(
+  spacing: <span class="num">8</span>, runSpacing: <span class="num">4</span>,
+  children: tags.<span class="fn">map</span>((t) => <span class="cls">Chip</span>(label: <span class="cls">Text</span>(t))).toList(),
+)
+</code></pre>
+      </section>
+
+      <section id="stateful">
+        <div class="section-header">
+          <div class="section-num">4</div>
+          <h2>Stateful vs Stateless Widgets</h2>
+        </div>
+        <pre><code><span class="cmt">// StatelessWidget — never changes, built once</span>
+<span class="kw">class</span> <span class="cls">Greeting</span> <span class="kw">extends</span> <span class="cls">StatelessWidget</span> {
+  <span class="kw">final</span> <span class="type">String</span> name;
+  <span class="kw">const</span> <span class="cls">Greeting</span>({<span class="kw">super</span>.key, <span class="kw">required</span> <span class="kw">this</span>.name});
+  <span class="kw">@override</span>
+  <span class="cls">Widget</span> <span class="fn">build</span>(<span class="cls">BuildContext</span> ctx) => <span class="cls">Text</span>(<span class="str">'Hello $name!'</span>);
+}
+
+<span class="cmt">// StatefulWidget — can rebuild when state changes</span>
+<span class="kw">class</span> <span class="cls">Counter</span> <span class="kw">extends</span> <span class="cls">StatefulWidget</span> {
+  <span class="kw">const</span> <span class="cls">Counter</span>({<span class="kw">super</span>.key});
+  <span class="kw">@override</span>
+  <span class="cls">State</span>&lt;<span class="cls">Counter</span>&gt; <span class="fn">createState</span>() => _<span class="cls">CounterState</span>();
+}
+
+<span class="kw">class</span> _<span class="cls">CounterState</span> <span class="kw">extends</span> <span class="cls">State</span>&lt;<span class="cls">Counter</span>&gt; {
+  <span class="type">int</span> _count = <span class="num">0</span>;
+
+  <span class="kw">void</span> <span class="fn">_increment</span>() {
+    <span class="fn">setState</span>(() { _count++; }); <span class="cmt">// setState() triggers a rebuild</span>
+  }
+
+  <span class="kw">@override</span>
+  <span class="cls">Widget</span> <span class="fn">build</span>(<span class="cls">BuildContext</span> ctx) {
+    <span class="kw">return</span> <span class="cls">Column</span>(children: [
+      <span class="cls">Text</span>(<span class="str">'Count: $_count'</span>, style: <span class="kw">const</span> <span class="cls">TextStyle</span>(fontSize: <span class="num">32</span>)),
+      <span class="cls">ElevatedButton</span>(onPressed: _increment, child: <span class="kw">const</span> <span class="cls">Text</span>(<span class="str">'+'</span>)),
+    ]);
+  }
+}
+</code></pre>
+        <div class="tip">
+          <strong>💡 Rule of Thumb:</strong> Start with
+          <code>StatelessWidget</code>. Only upgrade to
+          <code>StatefulWidget</code> when your widget needs to remember and
+          update data over time.
+        </div>
+      </section>
+
+      <section id="state-mgmt">
+        <div class="section-header">
+          <div class="section-num">5</div>
+          <h2>State Management</h2>
+        </div>
+        <p>
+          For apps beyond simple counters, you need a proper state management
+          solution. The most common options:
+        </p>
+        <h3>Provider (Recommended for beginners)</h3>
+        <pre><code><span class="cmt">// 1. Create a ChangeNotifier</span>
+<span class="kw">class</span> <span class="cls">CartModel</span> <span class="kw">extends</span> <span class="cls">ChangeNotifier</span> {
+  <span class="kw">final</span> <span class="type">List</span>&lt;<span class="type">String</span>&gt; _items = [];
+  <span class="type">List</span>&lt;<span class="type">String</span>&gt; <span class="kw">get</span> items => <span class="cls">List</span>.unmodifiable(_items);
+
+  <span class="kw">void</span> <span class="fn">add</span>(<span class="type">String</span> item) {
+    _items.<span class="fn">add</span>(item);
+    <span class="fn">notifyListeners</span>(); <span class="cmt">// tell widgets to rebuild</span>
+  }
+}
+
+<span class="cmt">// 2. Provide it at the top of the tree</span>
+<span class="fn">runApp</span>(
+  <span class="cls">ChangeNotifierProvider</span>(
+    create: (_) => <span class="cls">CartModel</span>(),
+    child: <span class="kw">const</span> <span class="cls">MyApp</span>(),
+  ),
+);
+
+<span class="cmt">// 3. Consume it anywhere below</span>
+<span class="kw">final</span> cart = <span class="cls">Provider</span>.of&lt;<span class="cls">CartModel</span>&gt;(context);
+<span class="cmt">// or with Consumer widget:</span>
+<span class="cls">Consumer</span>&lt;<span class="cls">CartModel</span>&gt;(
+  builder: (ctx, cart, _) => <span class="cls">Text</span>(<span class="str">'Items: ${cart.items.length}'</span>),
+)
+</code></pre>
+        <h3>Riverpod (Modern alternative)</h3>
+        <pre><code><span class="kw">final</span> counterProvider = <span class="cls">StateProvider</span>&lt;<span class="type">int</span>&gt;((ref) => <span class="num">0</span>);
+
+<span class="kw">class</span> <span class="cls">MyWidget</span> <span class="kw">extends</span> <span class="cls">ConsumerWidget</span> {
+  <span class="kw">@override</span>
+  <span class="cls">Widget</span> <span class="fn">build</span>(<span class="cls">BuildContext</span> ctx, <span class="cls">WidgetRef</span> ref) {
+    <span class="kw">final</span> count = ref.<span class="fn">watch</span>(counterProvider);
+    <span class="kw">return</span> <span class="cls">Text</span>(<span class="str">'$count'</span>);
+  }
+}
+</code></pre>
+        <table>
+          <tr>
+            <th>Solution</th>
+            <th>Best For</th>
+            <th>Complexity</th>
+          </tr>
+          <tr>
+            <td>setState</td>
+            <td>Simple, local state</td>
+            <td>Low</td>
+          </tr>
+          <tr>
+            <td>Provider</td>
+            <td>Small-medium apps</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td>Riverpod</td>
+            <td>Medium-large apps</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td>BLoC/Cubit</td>
+            <td>Large, enterprise apps</td>
+            <td>High</td>
+          </tr>
+        </table>
+      </section>
+
+      <section id="navigation">
+        <div class="section-header">
+          <div class="section-num">6</div>
+          <h2>Navigation & Routing</h2>
+        </div>
+        <pre><code><span class="cmt">// Push a new screen</span>
+<span class="cls">Navigator</span>.of(context).<span class="fn">push</span>(
+  <span class="cls">MaterialPageRoute</span>(builder: (ctx) => <span class="kw">const</span> <span class="cls">DetailScreen</span>()),
+);
+
+<span class="cmt">// Push and remove all previous screens (e.g. after login)</span>
+<span class="cls">Navigator</span>.of(context).<span class="fn">pushAndRemoveUntil</span>(
+  <span class="cls">MaterialPageRoute</span>(builder: (_) => <span class="kw">const</span> <span class="cls">HomeScreen</span>()),
+  (route) => <span class="kw">false</span>,
+);
+
+<span class="cmt">// Pop (go back), optionally with a result</span>
+<span class="cls">Navigator</span>.of(context).<span class="fn">pop</span>();
+<span class="cls">Navigator</span>.of(context).<span class="fn">pop</span>(<span class="str">'result data'</span>);
+
+<span class="cmt">// Named routes setup in MaterialApp</span>
+<span class="cls">MaterialApp</span>(
+  initialRoute: <span class="str">'/'</span>,
+  routes: {
+    <span class="str">'/'</span>       : (ctx) => <span class="kw">const</span> <span class="cls">HomeScreen</span>(),
+    <span class="str">'/detail'</span> : (ctx) => <span class="kw">const</span> <span class="cls">DetailScreen</span>(),
+    <span class="str">'/profile'</span>: (ctx) => <span class="kw">const</span> <span class="cls">ProfileScreen</span>(),
+  },
+)
+<span class="cls">Navigator</span>.<span class="fn">pushNamed</span>(context, <span class="str">'/detail'</span>);
+
+<span class="cmt">// GoRouter (recommended for complex apps)</span>
+<span class="kw">final</span> router = <span class="cls">GoRouter</span>(routes: [
+  <span class="cls">GoRoute</span>(path: <span class="str">'/'</span>, builder: (ctx, state) => <span class="kw">const</span> <span class="cls">HomeScreen</span>()),
+  <span class="cls">GoRoute</span>(path: <span class="str">'/user/:id'</span>, builder: (ctx, state) {
+    <span class="kw">final</span> id = state.pathParameters[<span class="str">'id'</span>];
+    <span class="kw">return</span> <span class="cls">UserScreen</span>(id: id!);
+  }),
+]);
+</code></pre>
+      </section>
+
+      <section id="forms">
+        <div class="section-header">
+          <div class="section-num">7</div>
+          <h2>Forms & Input</h2>
+        </div>
+        <pre><code><span class="kw">class</span> _<span class="cls">LoginFormState</span> <span class="kw">extends</span> <span class="cls">State</span>&lt;<span class="cls">LoginForm</span>&gt; {
+  <span class="kw">final</span> _formKey = <span class="cls">GlobalKey</span>&lt;<span class="cls">FormState</span>&gt;();
+  <span class="kw">final</span> _emailCtrl = <span class="cls">TextEditingController</span>();
+  <span class="kw">final</span> _passCtrl  = <span class="cls">TextEditingController</span>();
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> <span class="fn">dispose</span>() {
+    _emailCtrl.<span class="fn">dispose</span>(); <span class="cmt">// always dispose controllers!</span>
+    _passCtrl.<span class="fn">dispose</span>();
+    <span class="kw">super</span>.<span class="fn">dispose</span>();
+  }
+
+  <span class="kw">void</span> <span class="fn">_submit</span>() {
+    <span class="kw">if</span> (_formKey.currentState!.<span class="fn">validate</span>()) {
+      <span class="fn">print</span>(<span class="str">'Email: ${_emailCtrl.text}'</span>);
+    }
+  }
+
+  <span class="kw">@override</span>
+  <span class="cls">Widget</span> <span class="fn">build</span>(<span class="cls">BuildContext</span> ctx) {
+    <span class="kw">return</span> <span class="cls">Form</span>(
+      key: _formKey,
+      child: <span class="cls">Column</span>(children: [
+        <span class="cls">TextFormField</span>(
+          controller: _emailCtrl,
+          decoration: <span class="kw">const</span> <span class="cls">InputDecoration</span>(labelText: <span class="str">'Email'</span>),
+          validator: (v) => v!.contains(<span class="str">'@'</span>) ? <span class="kw">null</span> : <span class="str">'Invalid email'</span>,
+        ),
+        <span class="cls">TextFormField</span>(
+          controller: _passCtrl,
+          obscureText: <span class="kw">true</span>,
+          decoration: <span class="kw">const</span> <span class="cls">InputDecoration</span>(labelText: <span class="str">'Password'</span>),
+          validator: (v) => v!.length <span class="op">&gt;=</span> <span class="num">6</span> ? <span class="kw">null</span> : <span class="str">'Too short'</span>,
+        ),
+        <span class="cls">ElevatedButton</span>(onPressed: _submit, child: <span class="kw">const</span> <span class="cls">Text</span>(<span class="str">'Login'</span>)),
+      ]),
+    );
+  }
+}
+</code></pre>
+      </section>
+
+      <section id="http">
+        <div class="section-header">
+          <div class="section-num">8</div>
+          <h2>HTTP & APIs</h2>
+        </div>
+        <pre><code><span class="cmt">// Add to pubspec.yaml:
+// dependencies:
+//   http: ^1.2.0</span>
+
+<span class="kw">import</span> <span class="str">'package:http/http.dart'</span> <span class="kw">as</span> http;
+<span class="kw">import</span> <span class="str">'dart:convert'</span>;
+
+<span class="cmt">// Data model</span>
+<span class="kw">class</span> <span class="cls">Post</span> {
+  <span class="kw">final</span> <span class="type">int</span> id;
+  <span class="kw">final</span> <span class="type">String</span> title;
+  <span class="cls">Post</span>({<span class="kw">required</span> <span class="kw">this</span>.id, <span class="kw">required</span> <span class="kw">this</span>.title});
+  <span class="kw">factory</span> <span class="cls">Post</span>.<span class="fn">fromJson</span>(<span class="cls">Map</span>&lt;<span class="type">String</span>, <span class="kw">dynamic</span>&gt; json) =>
+    <span class="cls">Post</span>(id: json[<span class="str">'id'</span>], title: json[<span class="str">'title'</span>]);
+}
+
+<span class="cmt">// Fetch data</span>
+<span class="cls">Future</span>&lt;<span class="cls">List</span>&lt;<span class="cls">Post</span>&gt;&gt; <span class="fn">fetchPosts</span>() <span class="kw">async</span> {
+  <span class="kw">final</span> res = <span class="kw">await</span> http.<span class="fn">get</span>(<span class="cls">Uri</span>.<span class="fn">parse</span>(<span class="str">'https://jsonplaceholder.typicode.com/posts'</span>));
+  <span class="kw">if</span> (res.statusCode == <span class="num">200</span>) {
+    <span class="kw">final</span> data = jsonDecode(res.body) <span class="kw">as</span> <span class="cls">List</span>;
+    <span class="kw">return</span> data.<span class="fn">map</span>((j) => <span class="cls">Post</span>.<span class="fn">fromJson</span>(j)).toList();
+  }
+  <span class="kw">throw</span> <span class="cls">Exception</span>(<span class="str">'Failed: ${res.statusCode}'</span>);
+}
+
+<span class="cmt">// Use with FutureBuilder</span>
+<span class="cls">FutureBuilder</span>&lt;<span class="cls">List</span>&lt;<span class="cls">Post</span>&gt;&gt;(
+  future: <span class="fn">fetchPosts</span>(),
+  builder: (ctx, snapshot) {
+    <span class="kw">if</span> (snapshot.connectionState == <span class="cls">ConnectionState</span>.waiting)
+      <span class="kw">return</span> <span class="kw">const</span> <span class="cls">CircularProgressIndicator</span>();
+    <span class="kw">if</span> (snapshot.hasError) <span class="kw">return</span> <span class="cls">Text</span>(<span class="str">'Error: ${snapshot.error}'</span>);
+    <span class="kw">final</span> posts = snapshot.data!;
+    <span class="kw">return</span> <span class="cls">ListView</span>.builder(
+      itemCount: posts.length,
+      itemBuilder: (_, i) => <span class="cls">ListTile</span>(title: <span class="cls">Text</span>(posts[i].title)),
+    );
+  },
+)
+</code></pre>
+      </section>
+
+      <section id="storage">
+        <div class="section-header">
+          <div class="section-num">9</div>
+          <h2>Local Storage</h2>
+        </div>
+        <pre><code><span class="cmt">// SharedPreferences — key-value storage (settings, tokens)
+// pubspec: shared_preferences: ^2.2.0</span>
+<span class="kw">import</span> <span class="str">'package:shared_preferences/shared_preferences.dart'</span>;
+
+<span class="kw">final</span> prefs = <span class="kw">await</span> <span class="cls">SharedPreferences</span>.<span class="fn">getInstance</span>();
+<span class="kw">await</span> prefs.<span class="fn">setString</span>(<span class="str">'token'</span>, <span class="str">'abc123'</span>);
+<span class="kw">await</span> prefs.<span class="fn">setInt</span>(<span class="str">'count'</span>, <span class="num">42</span>);
+
+<span class="type">String</span>? token = prefs.<span class="fn">getString</span>(<span class="str">'token'</span>);
+<span class="kw">await</span> prefs.<span class="fn">remove</span>(<span class="str">'token'</span>);
+
+<span class="cmt">// SQLite — relational database
+// pubspec: sqflite: ^2.3.0, path: ^1.8.3</span>
+<span class="kw">import</span> <span class="str">'package:sqflite/sqflite.dart'</span>;
+
+<span class="kw">final</span> db = <span class="kw">await</span> <span class="fn">openDatabase</span>(
+  <span class="fn">join</span>(<span class="kw">await</span> <span class="fn">getDatabasesPath</span>(), <span class="str">'app.db'</span>),
+  version: <span class="num">1</span>,
+  onCreate: (db, v) => db.<span class="fn">execute</span>(
+    <span class="str">'CREATE TABLE todos (id INTEGER PRIMARY KEY, title TEXT, done INTEGER)'</span>
+  ),
+);
+
+<span class="kw">await</span> db.<span class="fn">insert</span>(<span class="str">'todos'</span>, {<span class="str">'title'</span>: <span class="str">'Buy milk'</span>, <span class="str">'done'</span>: <span class="num">0</span>});
+<span class="kw">final</span> todos = <span class="kw">await</span> db.<span class="fn">query</span>(<span class="str">'todos'</span>);
+</code></pre>
+      </section>
+
+      <section id="animations">
+        <div class="section-header">
+          <div class="section-num">10</div>
+          <h2>Animations</h2>
+        </div>
+        <pre><code><span class="cmt">// Implicit animations — simplest approach</span>
+<span class="cls">AnimatedContainer</span>(
+  duration: <span class="kw">const</span> <span class="cls">Duration</span>(milliseconds: <span class="num">300</span>),
+  curve: <span class="cls">Curves</span>.easeInOut,
+  width: _expanded ? <span class="num">200</span> : <span class="num">100</span>,
+  height: <span class="num">100</span>,
+  color: _expanded ? <span class="cls">Colors</span>.blue : <span class="cls">Colors</span>.red,
+)
+
+<span class="cls">AnimatedOpacity</span>(opacity: _visible ? <span class="num">1.0</span> : <span class="num">0.0</span>, duration: <span class="cls">Duration</span>(milliseconds: <span class="num">500</span>), child: child)
+<span class="cls">AnimatedSwitcher</span>(duration: <span class="cls">Duration</span>(milliseconds: <span class="num">300</span>), child: widgetBasedOnState)
+
+<span class="cmt">// Explicit animations — full control</span>
+<span class="kw">class</span> _<span class="cls">SpinState</span> <span class="kw">extends</span> <span class="cls">State</span>&lt;<span class="cls">SpinWidget</span>&gt; <span class="kw">with</span> <span class="cls">SingleTickerProviderStateMixin</span> {
+  <span class="kw">late</span> <span class="cls">AnimationController</span> _ctrl;
+  <span class="kw">late</span> <span class="cls">Animation</span>&lt;<span class="type">double</span>&gt; _anim;
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> <span class="fn">initState</span>() {
+    <span class="kw">super</span>.<span class="fn">initState</span>();
+    _ctrl = <span class="cls">AnimationController</span>(vsync: <span class="kw">this</span>, duration: <span class="kw">const</span> <span class="cls">Duration</span>(seconds: <span class="num">2</span>));
+    _anim = <span class="cls">Tween</span>(<span class="fn">begin</span>: <span class="num">0.0</span>, <span class="fn">end</span>: <span class="num">1.0</span>).<span class="fn">animate</span>(<span class="cls">CurvedAnimation</span>(parent: _ctrl, curve: <span class="cls">Curves</span>.linear));
+    _ctrl.<span class="fn">repeat</span>();
+  }
+  <span class="kw">@override</span>
+  <span class="kw">void</span> <span class="fn">dispose</span>() { _ctrl.<span class="fn">dispose</span>(); <span class="kw">super</span>.<span class="fn">dispose</span>(); }
+  <span class="kw">@override</span>
+  <span class="cls">Widget</span> <span class="fn">build</span>(<span class="cls">BuildContext</span> ctx) => <span class="cls">RotationTransition</span>(turns: _anim, child: widget.child);
+}
+</code></pre>
+      </section>
+
+      <section id="themes">
+        <div class="section-header">
+          <div class="section-num">11</div>
+          <h2>Themes & Styling</h2>
+        </div>
+        <pre><code><span class="cls">MaterialApp</span>(
+  theme: <span class="cls">ThemeData</span>(
+    colorScheme: <span class="cls">ColorScheme</span>.fromSeed(seedColor: <span class="cls">Colors</span>.deepPurple),
+    useMaterial3: <span class="kw">true</span>,
+    textTheme: <span class="kw">const</span> <span class="cls">TextTheme</span>(
+      headlineLarge: <span class="cls">TextStyle</span>(fontSize: <span class="num">32</span>, fontWeight: <span class="cls">FontWeight</span>.bold),
+      bodyMedium:   <span class="cls">TextStyle</span>(fontSize: <span class="num">16</span>),
+    ),
+  ),
+  darkTheme: <span class="cls">ThemeData</span>.dark(),
+  themeMode: <span class="cls">ThemeMode</span>.system, <span class="cmt">// auto dark/light</span>
+)
+
+<span class="cmt">// Access theme anywhere</span>
+<span class="kw">final</span> theme = <span class="cls">Theme</span>.of(context);
+theme.colorScheme.primary
+theme.textTheme.headlineLarge
+</code></pre>
+      </section>
+
+      <section id="architecture">
+        <div class="section-header">
+          <div class="section-num">12</div>
+          <h2>Architecture Patterns</h2>
+        </div>
+        <p>
+          As your app grows, good architecture keeps it maintainable. A common
+          folder structure:
+        </p>
+        <pre><code><span class="cmt">lib/
+├── main.dart
+├── app.dart              ← MaterialApp setup
+├── core/
+│   ├── constants.dart
+│   ├── router.dart
+│   └── theme.dart
+├── features/
+│   ├── auth/
+│   │   ├── data/         ← API calls, models
+│   │   ├── domain/       ← Business logic
+│   │   └── presentation/ ← Screens, widgets
+│   └── home/
+│       ├── data/
+│       └── presentation/
+└── shared/
+    ├── widgets/          ← Reusable UI components
+    └── utils/</span>
+</code></pre>
+        <div class="tip">
+          <strong>💡 Start Simple:</strong> Don't over-engineer early. Begin
+          with a simple feature-based folder structure and add complexity only
+          as your app requires it.
+        </div>
+      </section>
+
+      <div class="guide-nav">
+        <a href="/Users/macbookprom1/Documents/Personal/FlutterDart/index.html"
+          >← Back to Hub</a
+        >
+        <div style="display: flex; gap: 12px">
+          <a href="dart-guide.html">🎯 Dart Guide</a>
+          <a href="api-guide.html">🔌 API Guide →</a>
+        </div>
+      </div>
+    </div>
+    <footer>
+      Flutter Complete Guide &nbsp;·&nbsp;<a
+        href="/Users/macbookprom1/Documents/Personal/FlutterDart/index.html"
+        >Hub</a
+      ><a href="dart-guide.html">Dart</a><a href="api-guide.html">API</a>
+    </footer>
+  </body>
+</html>

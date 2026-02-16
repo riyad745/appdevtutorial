@@ -1,0 +1,1165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>APIs & REST – Complete Learning Guide</title>
+    <style>
+      :root {
+        --api: #ffa657;
+        --dark: #0f0a00;
+        --mid: #1a1200;
+        --accent: #2a1e00;
+        --text: #e0e0e0;
+        --code-bg: #0a0800;
+        --green: #56d364;
+        --blue: #79c0ff;
+        --orange: #ffa657;
+        --pink: #ff7b72;
+        --purple: #d2a8ff;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: var(--dark);
+        color: var(--text);
+        line-height: 1.75;
+      }
+      header {
+        background: linear-gradient(135deg, #0f0a00, #1a1000, #100800);
+        border-bottom: 4px solid var(--api);
+        padding: 60px 40px 50px;
+        text-align: center;
+      }
+      .lang-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #ffa657, #e07c39);
+        color: #fff;
+        font-size: 2.4rem;
+        font-weight: 900;
+        padding: 12px 28px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+      }
+      header h1 {
+        font-size: 2.4rem;
+        color: #fff;
+        font-weight: 800;
+        margin-bottom: 10px;
+      }
+      header p {
+        color: #8a7050;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      nav.breadcrumb {
+        background: #1a1200;
+        border-bottom: 1px solid #2a1e00;
+        padding: 14px 24px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      nav.breadcrumb a {
+        color: #ffa657;
+        text-decoration: none;
+        font-size: 0.88rem;
+      }
+      nav.breadcrumb span {
+        color: #333;
+        font-size: 0.88rem;
+      }
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+      }
+      .toc {
+        background: var(--mid);
+        border: 1px solid var(--accent);
+        border-left: 5px solid var(--api);
+        border-radius: 10px;
+        padding: 28px 32px;
+        margin-bottom: 48px;
+      }
+      .toc h2 {
+        color: var(--api);
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+      }
+      .toc ol {
+        columns: 2;
+        column-gap: 40px;
+        padding-left: 20px;
+      }
+      .toc li {
+        margin-bottom: 6px;
+      }
+      .toc a {
+        color: #79c0ff;
+        text-decoration: none;
+        font-size: 0.92rem;
+      }
+      .toc a:hover {
+        color: var(--api);
+      }
+      section {
+        margin-bottom: 64px;
+      }
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 24px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid var(--accent);
+      }
+      .section-num {
+        background: var(--api);
+        color: #fff;
+        font-size: 0.85rem;
+        font-weight: 800;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .section-header h2 {
+        font-size: 1.55rem;
+        color: #fff;
+        font-weight: 700;
+      }
+      p {
+        margin-bottom: 14px;
+        color: #ccc;
+      }
+      h3 {
+        color: var(--api);
+        font-size: 1.1rem;
+        margin: 28px 0 10px;
+      }
+      pre {
+        background: var(--code-bg);
+        border: 1px solid #2a1e00;
+        border-left: 4px solid var(--api);
+        border-radius: 8px;
+        padding: 20px 24px;
+        overflow-x: auto;
+        margin: 16px 0 24px;
+        font-size: 0.88rem;
+        line-height: 1.6;
+      }
+      code {
+        font-family: "Fira Code", "Cascadia Code", Consolas, monospace;
+      }
+      p code,
+      li code {
+        background: #1a1200;
+        color: var(--orange);
+        padding: 2px 7px;
+        border-radius: 4px;
+        font-size: 0.88em;
+      }
+      .kw {
+        color: var(--pink);
+      }
+      .str {
+        color: var(--green);
+      }
+      .num {
+        color: var(--orange);
+      }
+      .cmt {
+        color: #4a3820;
+        font-style: italic;
+      }
+      .fn {
+        color: var(--blue);
+      }
+      .cls {
+        color: var(--purple);
+      }
+      .op {
+        color: var(--pink);
+      }
+      .method {
+        color: #ffd700;
+      }
+      .url {
+        color: #56d364;
+      }
+      .tip,
+      .warning,
+      .info {
+        border-radius: 8px;
+        padding: 16px 20px;
+        margin: 20px 0;
+        font-size: 0.93rem;
+      }
+      .tip {
+        background: #0d2818;
+        border-left: 4px solid var(--green);
+      }
+      .warning {
+        background: #2d1b00;
+        border-left: 4px solid var(--orange);
+      }
+      .info {
+        background: #0d1f35;
+        border-left: 4px solid var(--blue);
+      }
+      .tip strong {
+        color: var(--green);
+      }
+      .warning strong {
+        color: var(--orange);
+      }
+      .info strong {
+        color: var(--blue);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 0.9rem;
+      }
+      th {
+        background: #2a1e00;
+        color: #ffa657;
+        padding: 10px 14px;
+        text-align: left;
+      }
+      td {
+        padding: 9px 14px;
+        border-bottom: 1px solid #2a1e00;
+        color: #ccc;
+      }
+      tr:nth-child(even) td {
+        background: #1a120055;
+      }
+      .method-badges {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 16px 0;
+      }
+      .badge {
+        padding: 5px 14px;
+        border-radius: 6px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+      .get {
+        background: #0d4026;
+        color: #56d364;
+      }
+      .post {
+        background: #0d1f3a;
+        color: #79c0ff;
+      }
+      .put {
+        background: #2d2000;
+        color: #ffd700;
+      }
+      .patch {
+        background: #2a0d2a;
+        color: #d2a8ff;
+      }
+      .delete {
+        background: #3a0d0d;
+        color: #ff7b72;
+      }
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 16px;
+        margin: 20px 0;
+      }
+      .card {
+        background: var(--mid);
+        border: 1px solid var(--accent);
+        border-radius: 10px;
+        padding: 18px;
+      }
+      .card h4 {
+        color: #ffa657;
+        margin-bottom: 8px;
+      }
+      .card p {
+        font-size: 0.87rem;
+        margin: 0;
+      }
+      ul,
+      ol {
+        padding-left: 22px;
+        margin-bottom: 14px;
+        color: #ccc;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+      .status-list {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 10px;
+      }
+      .status-list li {
+        background: var(--mid);
+        border: 1px solid var(--accent);
+        border-radius: 8px;
+        padding: 10px 14px;
+      }
+      .s2xx {
+        border-left: 3px solid var(--green);
+      }
+      .s3xx {
+        border-left: 3px solid #79c0ff;
+      }
+      .s4xx {
+        border-left: 3px solid #ffd700;
+      }
+      .s5xx {
+        border-left: 3px solid var(--pink);
+      }
+      .status-code {
+        font-weight: 700;
+        font-size: 0.9rem;
+      }
+      .s2xx .status-code {
+        color: var(--green);
+      }
+      .s3xx .status-code {
+        color: #79c0ff;
+      }
+      .s4xx .status-code {
+        color: #ffd700;
+      }
+      .s5xx .status-code {
+        color: var(--pink);
+      }
+      .guide-nav {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding-top: 32px;
+        border-top: 1px solid var(--accent);
+        margin-top: 40px;
+      }
+      .guide-nav a {
+        background: var(--mid);
+        border: 1px solid var(--accent);
+        border-radius: 8px;
+        padding: 12px 20px;
+        text-decoration: none;
+        color: #aaa;
+        font-size: 0.88rem;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .guide-nav a:hover {
+        border-color: #ffa657;
+        color: #ffa657;
+      }
+      footer {
+        text-align: center;
+        padding: 30px;
+        color: #445;
+        font-size: 0.85rem;
+        border-top: 1px solid #2a1e00;
+      }
+      footer a {
+        color: #ffa657;
+        text-decoration: none;
+        margin: 0 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="lang-badge">🔌 APIs</div>
+      <h1>APIs & REST – Complete Learning Guide</h1>
+      <p>
+        How applications communicate with servers. Master HTTP, REST design,
+        authentication, and real-world integration patterns.
+      </p>
+    </header>
+    <nav class="breadcrumb">
+      <a href="/Users/macbookprom1/Documents/Personal/FlutterDart/index.html"
+        >🏠 Hub</a
+      ><span>›</span><span>API Guide</span>
+      <span style="margin-left: auto; display: flex; gap: 12px">
+        ><a href="dart-guide.html">🎯 Dart</a
+        ><a href="flutter-guide.html">🐦 Flutter</a>
+      </span>
+    </nav>
+    <div class="container">
+      <div class="toc">
+        <h2>📋 Table of Contents</h2>
+        <ol>
+          <li><a href="#intro">What is an API?</a></li>
+          <li><a href="#http">HTTP Fundamentals</a></li>
+          <li><a href="#rest">REST Principles</a></li>
+          <li><a href="#status">Status Codes</a></li>
+          <li><a href="#json">JSON & Data Formats</a></li>
+          <li><a href="#headers">Headers</a></li>
+          <li><a href="#auth">Authentication</a></li>
+          <li><a href="#fetch">Making Requests (JS)</a></li>
+          <li><a href="#dart-http">Making Requests (Dart)</a></li>
+          <li><a href="#design">API Design Best Practices</a></li>
+          <li><a href="#errors">Error Handling</a></li>
+          <li><a href="#tools">Tools & Testing</a></li>
+        </ol>
+      </div>
+
+      <section id="intro">
+        <div class="section-header">
+          <div class="section-num">1</div>
+          <h2>What is an API?</h2>
+        </div>
+        <p>
+          An API (Application Programming Interface) is a contract between two
+          pieces of software. A REST API over HTTP lets your app (the client)
+          send requests to a server and receive data back — usually JSON.
+        </p>
+        <div class="card-grid">
+          <div class="card">
+            <h4>📱 Client</h4>
+            <p>
+              Your app — browser, mobile app, or any program that makes
+              requests.
+            </p>
+          </div>
+          <div class="card">
+            <h4>🌐 Network</h4>
+            <p>
+              HTTP protocol carries requests and responses across the internet.
+            </p>
+          </div>
+          <div class="card">
+            <h4>🖥️ Server</h4>
+            <p>
+              Processes requests, queries databases, returns structured data.
+            </p>
+          </div>
+          <div class="card">
+            <h4>🗄️ Database</h4>
+            <p>Stores persistent data. The server is the gatekeeper.</p>
+          </div>
+        </div>
+        <pre><code><span class="cmt">┌──────────────────────────────────────────────┐
+│                                              │
+│  Client          Server           Database  │
+│                                              │
+│  [App]  →  GET /api/users  →  [Server]      │
+│         ←  200 OK + JSON   ←  queries DB    │
+│                                              │
+└──────────────────────────────────────────────┘</span>
+</code></pre>
+      </section>
+
+      <section id="http">
+        <div class="section-header">
+          <div class="section-num">2</div>
+          <h2>HTTP Fundamentals</h2>
+        </div>
+        <p>
+          HTTP (HyperText Transfer Protocol) is the foundation of the web. Every
+          API call is an HTTP request → response cycle.
+        </p>
+        <h3>HTTP Methods</h3>
+        <div class="method-badges">
+          <span class="badge get">GET</span><span class="badge post">POST</span
+          ><span class="badge put">PUT</span
+          ><span class="badge patch">PATCH</span
+          ><span class="badge delete">DELETE</span>
+        </div>
+        <table>
+          <tr>
+            <th>Method</th>
+            <th>Purpose</th>
+            <th>Has Body?</th>
+            <th>Idempotent?</th>
+          </tr>
+          <tr>
+            <td><span class="badge get">GET</span></td>
+            <td>Read / retrieve data</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><span class="badge post">POST</span></td>
+            <td>Create new resource</td>
+            <td>Yes</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td><span class="badge put">PUT</span></td>
+            <td>Replace entire resource</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><span class="badge patch">PATCH</span></td>
+            <td>Update partial resource</td>
+            <td>Yes</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td><span class="badge delete">DELETE</span></td>
+            <td>Delete resource</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+        </table>
+        <pre><code><span class="cmt">-- Example HTTP Request --</span>
+<span class="method">GET</span> <span class="url">/api/users/42</span> HTTP/1.1
+Host: api.example.com
+Authorization: Bearer eyJhbGciOi...
+Accept: application/json
+
+<span class="cmt">-- Example HTTP Response --</span>
+HTTP/1.1 <span class="num">200</span> OK
+Content-Type: application/json
+
+{
+  "id": 42,
+  "name": "Alice",
+  "email": "alice@email.com"
+}
+</code></pre>
+        <div class="info">
+          <strong>ℹ️ Idempotent</strong> means calling the same request multiple
+          times produces the same result. GET, PUT, DELETE are idempotent; POST
+          is not.
+        </div>
+      </section>
+
+      <section id="rest">
+        <div class="section-header">
+          <div class="section-num">3</div>
+          <h2>REST Principles</h2>
+        </div>
+        <p>
+          REST (Representational State Transfer) is an architectural style for
+          designing networked APIs. A RESTful API follows these conventions:
+        </p>
+        <h3>URL Design — Resources, Not Actions</h3>
+        <pre><code><span class="cmt">❌ Bad (action-based URLs)</span>
+<span class="url">GET  /getUser?id=42</span>
+<span class="url">POST /createPost</span>
+<span class="url">GET  /deleteUser/42</span>
+
+<span class="cmt">✅ Good (resource-based URLs)</span>
+<span class="method">GET</span>    <span class="url">/users</span>           <span class="cmt">— list all users</span>
+<span class="method">POST</span>   <span class="url">/users</span>           <span class="cmt">— create a user</span>
+<span class="method">GET</span>    <span class="url">/users/42</span>        <span class="cmt">— get user 42</span>
+<span class="method">PUT</span>    <span class="url">/users/42</span>        <span class="cmt">— replace user 42</span>
+<span class="method">PATCH</span>  <span class="url">/users/42</span>        <span class="cmt">— update part of user 42</span>
+<span class="method">DELETE</span> <span class="url">/users/42</span>        <span class="cmt">— delete user 42</span>
+
+<span class="cmt">— Nested resources (relationships)</span>
+<span class="method">GET</span>    <span class="url">/users/42/posts</span>  <span class="cmt">— posts by user 42</span>
+<span class="method">POST</span>   <span class="url">/users/42/posts</span>  <span class="cmt">— create post for user 42</span>
+<span class="method">GET</span>    <span class="url">/posts?tag=dart</span>  <span class="cmt">— filter with query params</span>
+</code></pre>
+        <h3>REST Constraints</h3>
+        <ul>
+          <li>
+            <strong>Stateless</strong> — every request contains all needed info;
+            server stores no session
+          </li>
+          <li>
+            <strong>Client-Server</strong> — UI and data are separate concerns
+          </li>
+          <li>
+            <strong>Uniform Interface</strong> — consistent URL patterns and
+            HTTP methods
+          </li>
+          <li>
+            <strong>Layered</strong> — client doesn't know if it's talking to a
+            load balancer, cache, or the real server
+          </li>
+          <li>
+            <strong>Cacheable</strong> — responses indicate whether they can be
+            cached
+          </li>
+        </ul>
+      </section>
+
+      <section id="status">
+        <div class="section-header">
+          <div class="section-num">4</div>
+          <h2>HTTP Status Codes</h2>
+        </div>
+        <ul class="status-list">
+          <li class="s2xx">
+            <div class="status-code">200 OK</div>
+            <div>Request succeeded</div>
+          </li>
+          <li class="s2xx">
+            <div class="status-code">201 Created</div>
+            <div>Resource was created (POST)</div>
+          </li>
+          <li class="s2xx">
+            <div class="status-code">204 No Content</div>
+            <div>Success, no body (DELETE)</div>
+          </li>
+          <li class="s3xx">
+            <div class="status-code">301 Moved</div>
+            <div>Permanent redirect</div>
+          </li>
+          <li class="s3xx">
+            <div class="status-code">304 Not Modified</div>
+            <div>Cached version is valid</div>
+          </li>
+          <li class="s4xx">
+            <div class="status-code">400 Bad Request</div>
+            <div>Invalid data sent</div>
+          </li>
+          <li class="s4xx">
+            <div class="status-code">401 Unauthorized</div>
+            <div>Authentication required</div>
+          </li>
+          <li class="s4xx">
+            <div class="status-code">403 Forbidden</div>
+            <div>Authenticated but not allowed</div>
+          </li>
+          <li class="s4xx">
+            <div class="status-code">404 Not Found</div>
+            <div>Resource doesn't exist</div>
+          </li>
+          <li class="s4xx">
+            <div class="status-code">409 Conflict</div>
+            <div>State conflict (e.g. duplicate)</div>
+          </li>
+          <li class="s4xx">
+            <div class="status-code">422 Unprocessable</div>
+            <div>Validation failed</div>
+          </li>
+          <li class="s4xx">
+            <div class="status-code">429 Too Many</div>
+            <div>Rate limit exceeded</div>
+          </li>
+          <li class="s5xx">
+            <div class="status-code">500 Server Error</div>
+            <div>Something broke on server</div>
+          </li>
+          <li class="s5xx">
+            <div class="status-code">503 Unavailable</div>
+            <div>Server is down/overloaded</div>
+          </li>
+        </ul>
+        <div class="tip">
+          <strong>💡 Quick Rule:</strong> 2xx = success, 3xx = redirect, 4xx =
+          your mistake, 5xx = their mistake.
+        </div>
+      </section>
+
+      <section id="json">
+        <div class="section-header">
+          <div class="section-num">5</div>
+          <h2>JSON & Data Formats</h2>
+        </div>
+        <p>
+          JSON (JavaScript Object Notation) is the universal language of APIs.
+          It's lightweight, human-readable, and supported by every language.
+        </p>
+        <pre><code><span class="cmt">// JSON data types</span>
+{
+  <span class="str">"string"</span>: <span class="str">"hello"</span>,
+  <span class="str">"number"</span>: <span class="num">42</span>,
+  <span class="str">"float"</span>:  <span class="num">3.14</span>,
+  <span class="str">"boolean"</span>: <span class="kw">true</span>,
+  <span class="str">"null"</span>:  <span class="kw">null</span>,
+  <span class="str">"array"</span>: [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>],
+  <span class="str">"nested"</span>: { <span class="str">"key"</span>: <span class="str">"value"</span> }
+}
+
+<span class="cmt">// Typical API response structure</span>
+{
+  <span class="str">"success"</span>: <span class="kw">true</span>,
+  <span class="str">"data"</span>: {
+    <span class="str">"id"</span>: <span class="num">1</span>,
+    <span class="str">"name"</span>: <span class="str">"Alice"</span>,
+    <span class="str">"roles"</span>: [<span class="str">"admin"</span>, <span class="str">"editor"</span>],
+    <span class="str">"createdAt"</span>: <span class="str">"2025-01-15T09:30:00Z"</span>
+  },
+  <span class="str">"meta"</span>: {
+    <span class="str">"page"</span>: <span class="num">1</span>,
+    <span class="str">"total"</span>: <span class="num">100</span>
+  }
+}
+
+<span class="cmt">// Error response structure</span>
+{
+  <span class="str">"success"</span>: <span class="kw">false</span>,
+  <span class="str">"error"</span>: {
+    <span class="str">"code"</span>:    <span class="str">"VALIDATION_ERROR"</span>,
+    <span class="str">"message"</span>: <span class="str">"Email is invalid"</span>,
+    <span class="str">"field"</span>:   <span class="str">"email"</span>
+  }
+}
+</code></pre>
+        <h3>Parsing in JavaScript</h3>
+        <pre><code><span class="kw">const</span> text = <span class="str">'{"name":"Alice","age":25}'</span>;
+<span class="kw">const</span> obj  = <span class="fn">JSON</span>.<span class="fn">parse</span>(text);   <span class="cmt">// string → object</span>
+<span class="kw">const</span> back = <span class="fn">JSON</span>.<span class="fn">stringify</span>(obj); <span class="cmt">// object → string</span>
+<span class="kw">const</span> pretty = <span class="fn">JSON</span>.<span class="fn">stringify</span>(obj, <span class="kw">null</span>, <span class="num">2</span>); <span class="cmt">// indented</span>
+</code></pre>
+      </section>
+
+      <section id="headers">
+        <div class="section-header">
+          <div class="section-num">6</div>
+          <h2>Headers</h2>
+        </div>
+        <p>
+          Headers carry metadata about the request or response — they tell both
+          sides what kind of data is being sent and how to handle it.
+        </p>
+        <table>
+          <tr>
+            <th>Header</th>
+            <th>Direction</th>
+            <th>Purpose</th>
+          </tr>
+          <tr>
+            <td><code>Content-Type</code></td>
+            <td>Both</td>
+            <td>Format of the body (e.g. <code>application/json</code>)</td>
+          </tr>
+          <tr>
+            <td><code>Accept</code></td>
+            <td>Request</td>
+            <td>Format the client wants in return</td>
+          </tr>
+          <tr>
+            <td><code>Authorization</code></td>
+            <td>Request</td>
+            <td>Credentials (Bearer token, Basic auth)</td>
+          </tr>
+          <tr>
+            <td><code>Cache-Control</code></td>
+            <td>Both</td>
+            <td>Caching instructions</td>
+          </tr>
+          <tr>
+            <td><code>CORS headers</code></td>
+            <td>Response</td>
+            <td>Which origins can access the API</td>
+          </tr>
+          <tr>
+            <td><code>X-Request-ID</code></td>
+            <td>Both</td>
+            <td>Unique request ID for tracing</td>
+          </tr>
+          <tr>
+            <td><code>Rate-Limit-Remaining</code></td>
+            <td>Response</td>
+            <td>API calls left before throttling</td>
+          </tr>
+        </table>
+        <pre><code><span class="cmt">// Always send these for JSON APIs</span>
+<span class="str">'Content-Type'</span>: <span class="str">'application/json'</span>
+<span class="str">'Accept'</span>:       <span class="str">'application/json'</span>
+<span class="str">'Authorization'</span>: <span class="str">'Bearer YOUR_TOKEN'</span>
+</code></pre>
+      </section>
+
+      <section id="auth">
+        <div class="section-header">
+          <div class="section-num">7</div>
+          <h2>Authentication</h2>
+        </div>
+        <h3>JWT (JSON Web Tokens) — Most Common</h3>
+        <pre><code><span class="cmt">// 1. Login — send credentials</span>
+<span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'/api/auth/login'</span>, {
+  method: <span class="str">'POST'</span>,
+  headers: { <span class="str">'Content-Type'</span>: <span class="str">'application/json'</span> },
+  body: <span class="fn">JSON</span>.<span class="fn">stringify</span>({ email: <span class="str">'alice@email.com'</span>, password: <span class="str">'secret'</span> })
+});
+<span class="kw">const</span> { token } = <span class="kw">await</span> res.<span class="fn">json</span>();
+<span class="cmt">// Store securely: localStorage (web) or secure storage (mobile)</span>
+
+<span class="cmt">// 2. Use token on all subsequent requests</span>
+<span class="kw">const</span> data = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'/api/users/me'</span>, {
+  headers: { <span class="str">'Authorization'</span>: <span class="str">`Bearer <span class="op">${</span>token<span class="op">}</span>`</span> }
+});
+
+<span class="cmt">// JWT Structure: header.payload.signature
+// eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQyfQ.signature
+// The payload contains user info — but is NOT secret!
+// Never put passwords in JWT payload.</span>
+
+<span class="cmt">// 3. Refresh token when expired (401 response)</span>
+<span class="kw">if</span> (response.status <span class="op">===</span> <span class="num">401</span>) {
+  <span class="kw">const</span> newToken = <span class="kw">await</span> <span class="fn">refreshToken</span>();
+  <span class="cmt">// retry original request with new token</span>
+}
+</code></pre>
+        <h3>Other Auth Methods</h3>
+        <table>
+          <tr>
+            <th>Method</th>
+            <th>How</th>
+            <th>Best For</th>
+          </tr>
+          <tr>
+            <td>API Key</td>
+            <td>Header or query param</td>
+            <td>Server-to-server, simple access</td>
+          </tr>
+          <tr>
+            <td>Basic Auth</td>
+            <td>Base64(user:pass) in header</td>
+            <td>Simple internal APIs (HTTPS only!)</td>
+          </tr>
+          <tr>
+            <td>JWT</td>
+            <td>Signed token in Authorization header</td>
+            <td>User sessions, mobile apps</td>
+          </tr>
+          <tr>
+            <td>OAuth 2.0</td>
+            <td>Authorization code flow</td>
+            <td>"Sign in with Google/GitHub"</td>
+          </tr>
+          <tr>
+            <td>Session Cookie</td>
+            <td>Cookie set by server</td>
+            <td>Traditional web apps</td>
+          </tr>
+        </table>
+      </section>
+
+      <section id="fetch">
+        <div class="section-header">
+          <div class="section-num">8</div>
+          <h2>Making Requests — JavaScript</h2>
+        </div>
+        <pre><code><span class="cmt">// GET request</span>
+<span class="kw">async function</span> <span class="fn">getUser</span>(id) {
+  <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">`/api/users/<span class="op">${</span>id<span class="op">}</span>`</span>, {
+    headers: { <span class="str">'Authorization'</span>: <span class="str">`Bearer <span class="op">${</span>token<span class="op">}</span>`</span> }
+  });
+  <span class="kw">if</span> (!res.ok) <span class="kw">throw new</span> <span class="cls">Error</span>(<span class="str">`HTTP <span class="op">${</span>res.status<span class="op">}</span>`</span>);
+  <span class="kw">return</span> res.<span class="fn">json</span>();
+}
+
+<span class="cmt">// POST request (create)</span>
+<span class="kw">async function</span> <span class="fn">createPost</span>(data) {
+  <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'/api/posts'</span>, {
+    method: <span class="str">'POST'</span>,
+    headers: {
+      <span class="str">'Content-Type'</span>: <span class="str">'application/json'</span>,
+      <span class="str">'Authorization'</span>: <span class="str">`Bearer <span class="op">${</span>token<span class="op">}</span>`</span>
+    },
+    body: <span class="fn">JSON</span>.<span class="fn">stringify</span>(data)
+  });
+  <span class="kw">return</span> res.<span class="fn">json</span>();
+}
+
+<span class="cmt">// PATCH request (update)</span>
+<span class="kw">async function</span> <span class="fn">updateUser</span>(id, changes) {
+  <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">`/api/users/<span class="op">${</span>id<span class="op">}</span>`</span>, {
+    method: <span class="str">'PATCH'</span>,
+    headers: { <span class="str">'Content-Type'</span>: <span class="str">'application/json'</span> },
+    body: <span class="fn">JSON</span>.<span class="fn">stringify</span>(changes)
+  });
+  <span class="kw">return</span> res.<span class="fn">json</span>();
+}
+
+<span class="cmt">// DELETE request</span>
+<span class="kw">async function</span> <span class="fn">deleteUser</span>(id) {
+  <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">`/api/users/<span class="op">${</span>id<span class="op">}</span>`</span>, { method: <span class="str">'DELETE'</span> });
+  <span class="kw">if</span> (!res.ok) <span class="kw">throw new</span> <span class="cls">Error</span>(<span class="str">'Delete failed'</span>);
+}
+
+<span class="cmt">// Reusable API client wrapper</span>
+<span class="kw">class</span> <span class="cls">ApiClient</span> {
+  #baseUrl; #token;
+  <span class="fn">constructor</span>(baseUrl, token) { <span class="kw">this</span>.#baseUrl = baseUrl; <span class="kw">this</span>.#token = token; }
+
+  <span class="kw">async</span> #<span class="fn">request</span>(path, options = {}) {
+    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">`<span class="op">${</span><span class="kw">this</span>.#baseUrl<span class="op">}${</span>path<span class="op">}</span>`</span>, {
+      ...options,
+      headers: { <span class="str">'Content-Type'</span>: <span class="str">'application/json'</span>, <span class="str">'Authorization'</span>: <span class="str">`Bearer <span class="op">${</span><span class="kw">this</span>.#token<span class="op">}</span>`</span>, ...options.headers }
+    });
+    <span class="kw">if</span> (!res.ok) { <span class="kw">const</span> err = <span class="kw">await</span> res.<span class="fn">json</span>(); <span class="kw">throw</span> err; }
+    <span class="kw">return</span> res.status <span class="op">===</span> <span class="num">204</span> ? <span class="kw">null</span> : res.<span class="fn">json</span>();
+  }
+
+  <span class="fn">get</span>(path)         { <span class="kw">return</span> <span class="kw">this</span>.#<span class="fn">request</span>(path); }
+  <span class="fn">post</span>(path, data)  { <span class="kw">return</span> <span class="kw">this</span>.#<span class="fn">request</span>(path, { method: <span class="str">'POST'</span>,  body: <span class="fn">JSON</span>.<span class="fn">stringify</span>(data) }); }
+  <span class="fn">patch</span>(path, data) { <span class="kw">return</span> <span class="kw">this</span>.#<span class="fn">request</span>(path, { method: <span class="str">'PATCH'</span>, body: <span class="fn">JSON</span>.<span class="fn">stringify</span>(data) }); }
+  <span class="fn">delete</span>(path)      { <span class="kw">return</span> <span class="kw">this</span>.#<span class="fn">request</span>(path, { method: <span class="str">'DELETE'</span> }); }
+}
+</code></pre>
+      </section>
+
+      <section id="dart-http">
+        <div class="section-header">
+          <div class="section-num">9</div>
+          <h2>Making Requests — Dart / Flutter</h2>
+        </div>
+        <pre><code><span class="cmt">// pubspec.yaml:
+//   http: ^1.2.0</span>
+
+<span class="kw">import</span> <span class="str">'package:http/http.dart'</span> <span class="kw">as</span> http;
+<span class="kw">import</span> <span class="str">'dart:convert'</span>;
+
+<span class="kw">class</span> <span class="cls">ApiService</span> {
+  <span class="kw">static const</span> _baseUrl = <span class="str">'https://api.example.com'</span>;
+  <span class="type">String</span>? _token;
+
+  <span class="cls">Map</span>&lt;<span class="type">String</span>, <span class="type">String</span>&gt; <span class="kw">get</span> _headers => {
+    <span class="str">'Content-Type'</span>: <span class="str">'application/json'</span>,
+    <span class="kw">if</span> (_token != <span class="kw">null</span>) <span class="str">'Authorization'</span>: <span class="str">'Bearer $_token'</span>,
+  };
+
+  <span class="cmt">// GET</span>
+  <span class="cls">Future</span>&lt;<span class="cls">List</span>&lt;<span class="cls">User</span>&gt;&gt; <span class="fn">getUsers</span>() <span class="kw">async</span> {
+    <span class="kw">final</span> res = <span class="kw">await</span> http.<span class="fn">get</span>(<span class="cls">Uri</span>.<span class="fn">parse</span>(<span class="str">'$_baseUrl/users'</span>), headers: _headers);
+    <span class="fn">_checkStatus</span>(res);
+    <span class="kw">final</span> data = jsonDecode(res.body)[<span class="str">'data'</span>] <span class="kw">as</span> <span class="cls">List</span>;
+    <span class="kw">return</span> data.<span class="fn">map</span>((j) => <span class="cls">User</span>.<span class="fn">fromJson</span>(j)).toList();
+  }
+
+  <span class="cmt">// POST</span>
+  <span class="cls">Future</span>&lt;<span class="cls">User</span>&gt; <span class="fn">createUser</span>(<span class="cls">Map</span>&lt;<span class="type">String</span>, <span class="kw">dynamic</span>&gt; body) <span class="kw">async</span> {
+    <span class="kw">final</span> res = <span class="kw">await</span> http.<span class="fn">post</span>(
+      <span class="cls">Uri</span>.<span class="fn">parse</span>(<span class="str">'$_baseUrl/users'</span>),
+      headers: _headers,
+      body: jsonEncode(body),
+    );
+    <span class="fn">_checkStatus</span>(res);
+    <span class="kw">return</span> <span class="cls">User</span>.<span class="fn">fromJson</span>(jsonDecode(res.body)[<span class="str">'data'</span>]);
+  }
+
+  <span class="kw">void</span> <span class="fn">_checkStatus</span>(http.Response res) {
+    <span class="kw">if</span> (res.statusCode <span class="op">&lt;</span> <span class="num">200</span> || res.statusCode <span class="op">&gt;=</span> <span class="num">300</span>) {
+      <span class="kw">final</span> err = jsonDecode(res.body);
+      <span class="kw">throw</span> <span class="cls">ApiException</span>(err[<span class="str">'error'</span>][<span class="str">'message'</span>], res.statusCode);
+    }
+  }
+}
+
+<span class="kw">class</span> <span class="cls">ApiException</span> <span class="kw">implements</span> <span class="cls">Exception</span> {
+  <span class="kw">final</span> <span class="type">String</span> message;
+  <span class="kw">final</span> <span class="type">int</span> statusCode;
+  <span class="cls">ApiException</span>(<span class="kw">this</span>.message, <span class="kw">this</span>.statusCode);
+}
+</code></pre>
+        <div class="tip">
+          <strong>💡 Use Dio:</strong> For production Flutter apps, consider the
+          <code>dio</code> package — it adds interceptors, retries,
+          cancellation, and file upload support out of the box.
+        </div>
+      </section>
+
+      <section id="design">
+        <div class="section-header">
+          <div class="section-num">10</div>
+          <h2>API Design Best Practices</h2>
+        </div>
+        <ul>
+          <li>
+            <strong>Version your API</strong> — use <code>/api/v1/</code> in the
+            URL so you can evolve without breaking clients
+          </li>
+          <li>
+            <strong>Use nouns, not verbs</strong> — <code>/users</code> not
+            <code>/getUsers</code>
+          </li>
+          <li>
+            <strong>Consistent casing</strong> — use <code>camelCase</code> or
+            <code>snake_case</code> throughout (pick one)
+          </li>
+          <li>
+            <strong>Plural resource names</strong> — <code>/users</code> not
+            <code>/user</code>
+          </li>
+          <li>
+            <strong>Return appropriate status codes</strong> — don't return 200
+            for errors
+          </li>
+          <li>
+            <strong>Paginate lists</strong> — never return unlimited rows; use
+            <code>?page=1&limit=20</code>
+          </li>
+          <li>
+            <strong>Filter & sort via query params</strong> —
+            <code>/posts?status=published&sort=createdAt</code>
+          </li>
+          <li>
+            <strong>Document your API</strong> — use OpenAPI/Swagger for
+            auto-generated docs
+          </li>
+          <li>
+            <strong>Rate limiting</strong> — protect your server; return 429
+            when exceeded
+          </li>
+          <li>
+            <strong>Always use HTTPS</strong> — never expose APIs over plain
+            HTTP in production
+          </li>
+        </ul>
+        <pre><code><span class="cmt">// Good pagination response</span>
+{
+  <span class="str">"data"</span>: [...],
+  <span class="str">"pagination"</span>: {
+    <span class="str">"page"</span>:      <span class="num">1</span>,
+    <span class="str">"limit"</span>:     <span class="num">20</span>,
+    <span class="str">"total"</span>:     <span class="num">248</span>,
+    <span class="str">"totalPages"</span>: <span class="num">13</span>,
+    <span class="str">"hasNext"</span>:   <span class="kw">true</span>,
+    <span class="str">"hasPrev"</span>:   <span class="kw">false</span>
+  }
+}
+</code></pre>
+      </section>
+
+      <section id="errors">
+        <div class="section-header">
+          <div class="section-num">11</div>
+          <h2>Error Handling Patterns</h2>
+        </div>
+        <pre><code><span class="cmt">// Always check status before using data</span>
+<span class="kw">async function</span> <span class="fn">safeRequest</span>(url, options) {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(url, options);
+    <span class="kw">const</span> body = <span class="kw">await</span> res.<span class="fn">json</span>();
+
+    <span class="kw">if</span> (!res.ok) {
+      <span class="kw">switch</span> (res.status) {
+        <span class="kw">case</span> <span class="num">401</span>: <span class="kw">return</span> <span class="fn">redirectToLogin</span>();
+        <span class="kw">case</span> <span class="num">403</span>: <span class="kw">throw new</span> <span class="cls">Error</span>(<span class="str">'Access denied'</span>);
+        <span class="kw">case</span> <span class="num">422</span>: <span class="kw">throw</span> body.error;  <span class="cmt">// validation errors</span>
+        <span class="kw">case</span> <span class="num">429</span>: <span class="kw">throw new</span> <span class="cls">Error</span>(<span class="str">'Rate limited, slow down'</span>);
+        <span class="kw">default</span>:  <span class="kw">throw new</span> <span class="cls">Error</span>(<span class="str">`Server error: <span class="op">${</span>res.status<span class="op">}</span>`</span>);
+      }
+    }
+    <span class="kw">return</span> body.data;
+  } <span class="kw">catch</span> (err) {
+    <span class="kw">if</span> (err.name === <span class="str">'TypeError'</span>) {
+      <span class="kw">throw new</span> <span class="cls">Error</span>(<span class="str">'Network error — check your connection'</span>);
+    }
+    <span class="kw">throw</span> err;
+  }
+}
+
+<span class="cmt">// Exponential backoff retry for transient errors</span>
+<span class="kw">async function</span> <span class="fn">withRetry</span>(fn, maxAttempts = <span class="num">3</span>) {
+  <span class="kw">for</span> (<span class="kw">let</span> attempt = <span class="num">1</span>; attempt <span class="op">&lt;=</span> maxAttempts; attempt++) {
+    <span class="kw">try</span> { <span class="kw">return</span> <span class="kw">await</span> <span class="fn">fn</span>(); }
+    <span class="kw">catch</span> (err) {
+      <span class="kw">if</span> (attempt === maxAttempts) <span class="kw">throw</span> err;
+      <span class="kw">await</span> <span class="kw">new</span> <span class="cls">Promise</span>(r => <span class="fn">setTimeout</span>(r, <span class="num">2</span> ** attempt * <span class="num">100</span>));
+    }
+  }
+}
+</code></pre>
+      </section>
+
+      <section id="tools">
+        <div class="section-header">
+          <div class="section-num">12</div>
+          <h2>Tools & Testing</h2>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <h4>🟠 Postman</h4>
+            <p>
+              Most popular GUI for testing APIs. Save requests, create
+              collections, write test scripts.
+            </p>
+          </div>
+          <div class="card">
+            <h4>⚡ Insomnia</h4>
+            <p>Lightweight API client. Great for REST and GraphQL. Clean UI.</p>
+          </div>
+          <div class="card">
+            <h4>🌊 HTTPie</h4>
+            <p>
+              Terminal-based.
+              <code
+                >http GET api.example.com/users Authorization:"Bearer
+                token"</code
+              >
+            </p>
+          </div>
+          <div class="card">
+            <h4>📄 Swagger/OpenAPI</h4>
+            <p>
+              Auto-generate interactive docs from your API spec. Standard for
+              documenting APIs.
+            </p>
+          </div>
+          <div class="card">
+            <h4>🎭 Mock APIs</h4>
+            <p>
+              JSONPlaceholder, MockAPI.io, or msw (Mock Service Worker) for
+              testing without a real backend.
+            </p>
+          </div>
+          <div class="card">
+            <h4>🔍 curl</h4>
+            <p>
+              Universal command-line tool.
+              <code
+                >curl -H "Authorization: Bearer token"
+                https://api.example.com/users</code
+              >
+            </p>
+          </div>
+        </div>
+        <pre><code><span class="cmt"># curl examples — works everywhere</span>
+<span class="cmt"># GET</span>
+curl https://api.example.com/users \
+  -H <span class="str">"Authorization: Bearer TOKEN"</span>
+
+<span class="cmt"># POST with JSON body</span>
+curl -X POST https://api.example.com/users \
+  -H <span class="str">"Content-Type: application/json"</span> \
+  -H <span class="str">"Authorization: Bearer TOKEN"</span> \
+  -d <span class="str">'{"name":"Alice","email":"alice@email.com"}'</span>
+
+<span class="cmt"># Free test API (no auth needed)</span>
+curl https://jsonplaceholder.typicode.com/posts/1
+</code></pre>
+      </section>
+
+      <div class="guide-nav">
+        <a href="/Users/macbookprom1/Documents/Personal/FlutterDart/index.html"
+          >← Back to Hub</a
+        >
+        <div style="display: flex; gap: 12px">
+          <a href="dart-guide.html">🎯 Dart Guide</a>
+          <a href="flutter-guide.html">🐦 Flutter Guide</a>
+        </div>
+      </div>
+    </div>
+    <footer>
+      API & REST Complete Guide &nbsp;·&nbsp;<a
+        href="/Users/macbookprom1/Documents/Personal/FlutterDart/index.html"
+        >Hub</a
+      ><a href="dart-guide.html">Dart</a
+      ><a href="flutter-guide.html">Flutter</a>
+    </footer>
+  </body>
+</html>

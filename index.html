@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Flutter, Dart, Api By Riyad</title>
+
+    <style>
+      :root {
+        --bg: #0a0a14;
+        --surface: #111122;
+        --border: #1e1e3a;
+        --teal: #00d4aa;
+        --text: #e0e0e0;
+        --muted: #888;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+      }
+
+      /* HERO */
+      .hero {
+        background: linear-gradient(135deg, #0a0a14, #111130, #0a1428);
+        border-bottom: 1px solid var(--border);
+        padding: 80px 40px 60px;
+        text-align: center;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: #ffffff08;
+        border: 1px solid #ffffff18;
+        border-radius: 50px;
+        padding: 8px 20px;
+        font-size: 0.85rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 28px;
+      }
+      .hero-badge span {
+        color: var(--teal);
+      }
+      .hero h1 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 900;
+        background: linear-gradient(135deg, #fff 30%, #79c0ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 16px;
+      }
+      .hero p {
+        color: var(--muted);
+        font-size: 1.1rem;
+        max-width: 560px;
+        margin: 0 auto 40px;
+      }
+      .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+      .stat {
+        text-align: center;
+      }
+      .stat strong {
+        display: block;
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #fff;
+      }
+      .stat span {
+        font-size: 0.8rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* CONTAINER */
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 60px 24px 80px;
+      }
+      .section-label {
+        text-align: center;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: var(--muted);
+        margin-bottom: 40px;
+      }
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        margin-bottom: 60px;
+      }
+      .guide-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 32px;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        position: relative;
+        overflow: hidden;
+      }
+      .guide-card:hover {
+        transform: translateY(-4px);
+      }
+
+      .card-icon {
+        font-size: 2.4rem;
+      }
+      .card-tag {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        padding: 4px 10px;
+        border-radius: 50px;
+        display: inline-block;
+        width: fit-content;
+      }
+      .guide-card h2 {
+        font-size: 1.45rem;
+        font-weight: 800;
+        color: #fff;
+      }
+      .guide-card p {
+        font-size: 0.9rem;
+        color: var(--muted);
+        line-height: 1.65;
+        flex: 1;
+      }
+      .topics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 4px;
+      }
+      .topic {
+        font-size: 0.72rem;
+        padding: 3px 9px;
+        border-radius: 50px;
+        background: #ffffff08;
+        border: 1px solid #ffffff14;
+        color: #aaa;
+      }
+      .card-arrow {
+        align-self: flex-start;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-top: 4px;
+      }
+
+      /* Specific Colors */
+      .dart .card-tag {
+        background: #00b4d822;
+        color: #00d4ff;
+      }
+      .flutter .card-tag {
+        background: #54c5f822;
+        color: #54c5f8;
+      }
+      .api .card-tag {
+        background: #ffa65722;
+        color: #ffa657;
+      }
+
+      .dart .card-arrow {
+        color: #00d4ff;
+      }
+      .flutter .card-arrow {
+        color: #54c5f8;
+      }
+      .api .card-arrow {
+        color: #ffa657;
+      }
+
+      /* Learning Path */
+      .learning-path {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 40px;
+        margin-bottom: 48px;
+      }
+      .learning-path h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 28px;
+        text-align: center;
+      }
+      .path-steps {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .path-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 24px;
+        text-align: center;
+      }
+      .step-num {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        font-weight: 800;
+      }
+      .step-num.s1 {
+        background: #00b4d822;
+        color: #00d4ff;
+        border: 2px solid #00b4d866;
+      }
+      .step-num.s2 {
+        background: #54c5f822;
+        color: #54c5f8;
+        border: 2px solid #54c5f866;
+      }
+      .step-num.s3 {
+        background: #ffa65722;
+        color: #ffa657;
+        border: 2px solid #ffa65766;
+      }
+
+      footer {
+        text-align: center;
+        padding: 32px;
+        color: var(--muted);
+        font-size: 0.83rem;
+        border-top: 1px solid var(--border);
+      }
+      footer a {
+        color: var(--teal);
+        text-decoration: none;
+        margin: 0 8px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="hero">
+      <div class="hero-badge">
+        📚 <span>Complete App Dev Learning Hub</span>
+      </div>
+      <h1>Master Modern Development</h1>
+      <p>
+        Three comprehensive guides — Dart, Flutter, and APIs. Build powerful
+        modern applications.
+      </p>
+
+      <div class="hero-stats">
+        <div class="stat"><strong>3</strong><span>Guides</span></div>
+        <div class="stat"><strong>45+</strong><span>Topics</span></div>
+        <div class="stat"><strong>150+</strong><span>Examples</span></div>
+        <div class="stat"><strong>∞</strong><span>Projects</span></div>
+      </div>
+    </div>
+
+    <div class="container">
+      <p class="section-label">Choose your guide</p>
+
+      <div class="card-grid">
+        <!-- Dart -->
+        <a href="Pages/dart-guide.html" class="guide-card dart">
+          <div class="card-icon">🎯</div>
+          <div class="card-tag">Language</div>
+          <h2>Dart</h2>
+          <p>
+            Google's type-safe language. Null safety, collections, async
+            Futures, Streams, and OOP.
+          </p>
+          <div class="topics">
+            <span class="topic">Null Safety</span>
+            <span class="topic">Types</span>
+            <span class="topic">Futures</span>
+            <span class="topic">Streams</span>
+            <span class="topic">OOP</span>
+          </div>
+          <div class="card-arrow">Open Dart Guide →</div>
+        </a>
+
+        <!-- Flutter -->
+        <a href="Pages/flutter-guide.html" class="guide-card flutter">
+          <div class="card-icon">🐦</div>
+          <div class="card-tag">Framework</div>
+          <h2>Flutter</h2>
+          <p>
+            One codebase, every platform. Widgets, layouts, state management,
+            navigation.
+          </p>
+          <div class="topics">
+            <span class="topic">Widgets</span>
+            <span class="topic">Layouts</span>
+            <span class="topic">State</span>
+            <span class="topic">Navigation</span>
+          </div>
+          <div class="card-arrow">Open Flutter Guide →</div>
+        </a>
+
+        <!-- API -->
+        <a href="Pages/api-guide.html" class="guide-card api">
+          <div class="card-icon">🔌</div>
+          <div class="card-tag">Integration</div>
+          <h2>APIs & REST</h2>
+          <p>
+            HTTP methods, REST design, JSON, authentication, error handling.
+          </p>
+          <div class="topics">
+            <span class="topic">HTTP</span>
+            <span class="topic">REST</span>
+            <span class="topic">JSON</span>
+            <span class="topic">JWT Auth</span>
+          </div>
+          <div class="card-arrow">Open API Guide →</div>
+        </a>
+      </div>
+
+      <div class="learning-path">
+        <h3>📍 Recommended Learning Path</h3>
+        <div class="path-steps">
+          <div class="path-step">
+            <div class="step-num s1">1</div>
+            <strong style="color: #00d4ff; font-size: 0.9rem">Dart</strong>
+            <span>Typed programming</span>
+          </div>
+
+          <div class="path-step">
+            <div class="step-num s2">2</div>
+            <strong style="color: #54c5f8; font-size: 0.9rem">Flutter</strong>
+            <span>Cross-platform apps</span>
+          </div>
+
+          <div class="path-step">
+            <div class="step-num s3">3</div>
+            <strong style="color: #ffa657; font-size: 0.9rem">APIs</strong>
+            <span>Connect to backends</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Dev Learning Hub ·
+      <a href="Pages/dart-guide.html">Dart</a>
+      <a href="Pages/flutter-guide.html">Flutter</a>
+      <a href="Pages/api-guide.html">API</a>
+    </footer>
+  </body>
+</html>

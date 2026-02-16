@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Dart – Complete Learning Guide</title>
+    <style>
+      :root {
+        --yellow: #00d4ff;
+        --dark: #0a0f1a;
+        --mid: #0f1628;
+        --accent: #162040;
+        --text: #e0e0e0;
+        --code-bg: #070d1a;
+        --green: #56d364;
+        --blue: #79c0ff;
+        --orange: #ffa657;
+        --pink: #ff7b72;
+        --purple: #d2a8ff;
+        --dart: #00b4d8;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: var(--dark);
+        color: var(--text);
+        line-height: 1.75;
+      }
+      header {
+        background: linear-gradient(135deg, #0a0f1a, #0d1830, #091428);
+        border-bottom: 4px solid var(--dart);
+        padding: 60px 40px 50px;
+        text-align: center;
+      }
+      .lang-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #00b4d8, #0077b6);
+        color: #fff;
+        font-size: 2.4rem;
+        font-weight: 900;
+        padding: 12px 28px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+      }
+      header h1 {
+        font-size: 2.4rem;
+        color: #fff;
+        font-weight: 800;
+        margin-bottom: 10px;
+      }
+      header p {
+        color: #8899aa;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      nav.breadcrumb {
+        background: #0f1628;
+        border-bottom: 1px solid #162040;
+        padding: 14px 24px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      nav.breadcrumb a {
+        color: #00d4ff;
+        text-decoration: none;
+        font-size: 0.88rem;
+      }
+      nav.breadcrumb span {
+        color: #444;
+        font-size: 0.88rem;
+      }
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+      }
+      .toc {
+        background: var(--mid);
+        border: 1px solid var(--accent);
+        border-left: 5px solid var(--dart);
+        border-radius: 10px;
+        padding: 28px 32px;
+        margin-bottom: 48px;
+      }
+      .toc h2 {
+        color: var(--dart);
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+      }
+      .toc ol {
+        columns: 2;
+        column-gap: 40px;
+        padding-left: 20px;
+      }
+      .toc li {
+        margin-bottom: 6px;
+      }
+      .toc a {
+        color: #79c0ff;
+        text-decoration: none;
+        font-size: 0.92rem;
+      }
+      .toc a:hover {
+        color: var(--dart);
+      }
+      section {
+        margin-bottom: 64px;
+      }
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 24px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid var(--accent);
+      }
+      .section-num {
+        background: var(--dart);
+        color: #fff;
+        font-size: 0.85rem;
+        font-weight: 800;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .section-header h2 {
+        font-size: 1.55rem;
+        color: #fff;
+        font-weight: 700;
+      }
+      p {
+        margin-bottom: 14px;
+        color: #ccc;
+      }
+      h3 {
+        color: var(--dart);
+        font-size: 1.1rem;
+        margin: 28px 0 10px;
+      }
+      pre {
+        background: var(--code-bg);
+        border: 1px solid #162040;
+        border-left: 4px solid var(--dart);
+        border-radius: 8px;
+        padding: 20px 24px;
+        overflow-x: auto;
+        margin: 16px 0 24px;
+        font-size: 0.88rem;
+        line-height: 1.6;
+      }
+      code {
+        font-family: "Fira Code", "Cascadia Code", Consolas, monospace;
+      }
+      p code,
+      li code {
+        background: #0f1a2e;
+        color: var(--orange);
+        padding: 2px 7px;
+        border-radius: 4px;
+        font-size: 0.88em;
+      }
+      .kw {
+        color: var(--pink);
+      }
+      .str {
+        color: var(--green);
+      }
+      .num {
+        color: var(--orange);
+      }
+      .cmt {
+        color: #4a6080;
+        font-style: italic;
+      }
+      .fn {
+        color: var(--blue);
+      }
+      .cls {
+        color: var(--purple);
+      }
+      .op {
+        color: var(--pink);
+      }
+      .type {
+        color: #00d4ff;
+      }
+      .tip,
+      .warning,
+      .info {
+        border-radius: 8px;
+        padding: 16px 20px;
+        margin: 20px 0;
+        font-size: 0.93rem;
+      }
+      .tip {
+        background: #0d2818;
+        border-left: 4px solid var(--green);
+      }
+      .warning {
+        background: #2d1b00;
+        border-left: 4px solid var(--orange);
+      }
+      .info {
+        background: #0d1f35;
+        border-left: 4px solid var(--blue);
+      }
+      .tip strong {
+        color: var(--green);
+      }
+      .warning strong {
+        color: var(--orange);
+      }
+      .info strong {
+        color: var(--blue);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 0.9rem;
+      }
+      th {
+        background: #162040;
+        color: #00d4ff;
+        padding: 10px 14px;
+        text-align: left;
+      }
+      td {
+        padding: 9px 14px;
+        border-bottom: 1px solid #162040;
+        color: #ccc;
+      }
+      tr:nth-child(even) td {
+        background: #0f182855;
+      }
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 16px;
+        margin: 20px 0;
+      }
+      .card {
+        background: var(--mid);
+        border: 1px solid var(--accent);
+        border-radius: 10px;
+        padding: 18px;
+      }
+      .card h4 {
+        color: #00d4ff;
+        margin-bottom: 8px;
+      }
+      .card p {
+        font-size: 0.87rem;
+        margin: 0;
+      }
+      ul,
+      ol {
+        padding-left: 22px;
+        margin-bottom: 14px;
+        color: #ccc;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+      .guide-nav {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding-top: 32px;
+        border-top: 1px solid var(--accent);
+        margin-top: 40px;
+      }
+      .guide-nav a {
+        background: var(--mid);
+        border: 1px solid var(--accent);
+        border-radius: 8px;
+        padding: 12px 20px;
+        text-decoration: none;
+        color: #aaa;
+        font-size: 0.88rem;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .guide-nav a:hover {
+        border-color: #00d4ff;
+        color: #00d4ff;
+      }
+      footer {
+        text-align: center;
+        padding: 30px;
+        color: #445;
+        font-size: 0.85rem;
+        border-top: 1px solid #162040;
+      }
+      footer a {
+        color: #00d4ff;
+        text-decoration: none;
+        margin: 0 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="lang-badge">🎯 Dart</div>
+      <h1>Dart – Complete Learning Guide</h1>
+      <p>
+        Google's modern, type-safe language. The backbone of Flutter and the
+        gateway to cross-platform development.
+      </p>
+    </header>
+    <nav class="breadcrumb">
+      <a href="/Users/macbookprom1/Documents/Personal/FlutterDart/index.html"
+        >🏠 Hub</a
+      ><span>›</span><span>Dart Guide</span>
+      <span style="margin-left: auto; display: flex; gap: 12px">
+        ><a href="flutter-guide.html">🐦 Flutter</a
+        ><a href="api-guide.html">🔌 API</a>
+      </span>
+    </nav>
+    <div class="container">
+      <div class="toc">
+        <h2>📋 Table of Contents</h2>
+        <ol>
+          <li><a href="#intro">Introduction to Dart</a></li>
+          <li><a href="#types">Variables & Type System</a></li>
+          <li><a href="#null-safety">Null Safety</a></li>
+          <li><a href="#control">Control Flow</a></li>
+          <li><a href="#functions">Functions</a></li>
+          <li><a href="#collections">Collections</a></li>
+          <li><a href="#oop">OOP & Classes</a></li>
+          <li><a href="#mixins">Mixins & Extensions</a></li>
+          <li><a href="#async">Async & Futures</a></li>
+          <li><a href="#streams">Streams</a></li>
+          <li><a href="#errors">Error Handling</a></li>
+          <li><a href="#generics">Generics</a></li>
+        </ol>
+      </div>
+
+      <section id="intro">
+        <div class="section-header">
+          <div class="section-num">1</div>
+          <h2>Introduction to Dart</h2>
+        </div>
+        <p>
+          Dart is a client-optimized language developed by Google. It compiles
+          to native ARM code for mobile/desktop and to JavaScript for the web.
+          It's strongly typed, object-oriented, and powers all Flutter apps.
+        </p>
+        <div class="card-grid">
+          <div class="card">
+            <h4>🔒 Type Safe</h4>
+            <p>
+              Dart's sound type system catches errors at compile time, not
+              runtime.
+            </p>
+          </div>
+          <div class="card">
+            <h4>⚡ Fast</h4>
+            <p>
+              Compiles AOT (Ahead of Time) to native machine code for maximum
+              performance.
+            </p>
+          </div>
+          <div class="card">
+            <h4>🌐 Versatile</h4>
+            <p>
+              Runs on mobile, desktop, web (via JS compilation), and server.
+            </p>
+          </div>
+          <div class="card">
+            <h4>🐦 Flutter-Powered</h4>
+            <p>
+              The exclusive language of Flutter — learn Dart, unlock Flutter.
+            </p>
+          </div>
+        </div>
+        <pre><code><span class="cmt">// Your first Dart program</span>
+<span class="kw">void</span> <span class="fn">main</span>() {
+  <span class="fn">print</span>(<span class="str">'Hello, Dart!'</span>);
+
+  <span class="kw">var</span> name = <span class="str">'Alice'</span>;
+  <span class="type">int</span> age  = <span class="num">25</span>;
+  <span class="fn">print</span>(<span class="str">'Name: <span class="op">$</span>name, Age: <span class="op">$</span>age'</span>); <span class="cmt">// string interpolation</span>
+}
+</code></pre>
+        <div class="tip">
+          <strong>💡 Run Dart online:</strong> Visit dartpad.dev to run Dart
+          code instantly in your browser — no install needed.
+        </div>
+      </section>
+
+      <section id="types">
+        <div class="section-header">
+          <div class="section-num">2</div>
+          <h2>Variables & Type System</h2>
+        </div>
+        <table>
+          <tr>
+            <th>Keyword</th>
+            <th>Meaning</th>
+            <th>Example</th>
+          </tr>
+          <tr>
+            <td><code>var</code></td>
+            <td>Type inferred once, then fixed</td>
+            <td><code>var x = 42;</code></td>
+          </tr>
+          <tr>
+            <td><code>final</code></td>
+            <td>Set once at runtime</td>
+            <td><code>final name = 'Bob';</code></td>
+          </tr>
+          <tr>
+            <td><code>const</code></td>
+            <td>Compile-time constant</td>
+            <td><code>const pi = 3.14;</code></td>
+          </tr>
+          <tr>
+            <td><code>late</code></td>
+            <td>Initialized later (non-nullable)</td>
+            <td><code>late String data;</code></td>
+          </tr>
+        </table>
+        <pre><code><span class="cmt">// Built-in types</span>
+<span class="type">int</span>    count   = <span class="num">42</span>;
+<span class="type">double</span> price   = <span class="num">9.99</span>;
+<span class="type">String</span> name    = <span class="str">'Alice'</span>;
+<span class="type">bool</span>   isReady = <span class="kw">true</span>;
+<span class="type">dynamic</span> anything = <span class="str">'can change type'</span>; <span class="cmt">// avoid when possible</span>
+
+<span class="cmt">// Type conversion</span>
+<span class="type">int</span>.parse(<span class="str">'42'</span>);       <span class="cmt">// String → int</span>
+<span class="num">42</span>.toString();         <span class="cmt">// int → String</span>
+<span class="num">3.14</span>.toInt();          <span class="cmt">// double → int (truncates)</span>
+
+<span class="cmt">// String features</span>
+<span class="kw">var</span> s = <span class="str">'Dart'</span>;
+<span class="fn">print</span>(<span class="str">'Hello <span class="op">$</span>s'</span>);          <span class="cmt">// "Hello Dart"</span>
+<span class="fn">print</span>(<span class="str">'Length: <span class="op">${</span>s.length<span class="op">}</span>'</span>); <span class="cmt">// expressions need ${}</span>
+<span class="fn">print</span>(s.toUpperCase());    <span class="cmt">// "DART"</span>
+<span class="fn">print</span>(s.contains(<span class="str">'ar'</span>));  <span class="cmt">// true</span>
+
+<span class="cmt">// Multi-line strings</span>
+<span class="kw">var</span> bio = <span class="str">'''
+  This is a
+  multi-line string
+'''</span>;
+</code></pre>
+      </section>
+
+      <section id="null-safety">
+        <div class="section-header">
+          <div class="section-num">3</div>
+          <h2>Null Safety ⭐</h2>
+        </div>
+        <p>
+          Dart's null safety (introduced in Dart 2.12) eliminates entire classes
+          of null-pointer bugs. By default, variables cannot be null — you must
+          explicitly opt in with <code>?</code>.
+        </p>
+        <pre><code><span class="cmt">// Non-nullable (default) — cannot be null</span>
+<span class="type">String</span> name = <span class="str">'Alice'</span>;
+<span class="cmt">// name = null; ← COMPILE ERROR</span>
+
+<span class="cmt">// Nullable — add ? to allow null</span>
+<span class="type">String</span>? nickname = <span class="kw">null</span>;  <span class="cmt">// OK</span>
+
+<span class="cmt">// Null-aware operators</span>
+<span class="fn">print</span>(nickname ?? <span class="str">'No nickname'</span>); <span class="cmt">// ?? = use right if left is null</span>
+nickname ??= <span class="str">'Default'</span>;           <span class="cmt">// assign only if null</span>
+<span class="fn">print</span>(nickname<span class="op">?.</span>length);          <span class="cmt">// ?. = call only if not null</span>
+<span class="fn">print</span>(nickname<span class="op">!</span>.length);          <span class="cmt">// ! = assert not null (throws if null)</span>
+
+<span class="cmt">// late — non-nullable but initialized later</span>
+<span class="kw">late</span> <span class="type">String</span> data;
+data = <span class="str">'assigned later'</span>; <span class="cmt">// must assign before use or throws</span>
+</code></pre>
+        <div class="warning">
+          <strong>⚠️ Avoid ! (bang operator)</strong> unless you're absolutely
+          certain the value isn't null. Prefer <code>??</code>, <code>?.</code>,
+          or null checks.
+        </div>
+      </section>
+
+      <section id="control">
+        <div class="section-header">
+          <div class="section-num">4</div>
+          <h2>Control Flow</h2>
+        </div>
+        <pre><code><span class="cmt">// if / else</span>
+<span class="kw">if</span> (age <span class="op">>=</span> <span class="num">18</span>) { <span class="fn">print</span>(<span class="str">'Adult'</span>); } <span class="kw">else</span> { <span class="fn">print</span>(<span class="str">'Minor'</span>); }
+
+<span class="cmt">// for loop</span>
+<span class="kw">for</span> (<span class="type">int</span> i = <span class="num">0</span>; i <span class="op">&lt;</span> <span class="num">5</span>; i++) <span class="fn">print</span>(i);
+
+<span class="cmt">// for-in loop</span>
+<span class="kw">for</span> (<span class="kw">var</span> item <span class="kw">in</span> [<span class="str">'a'</span>, <span class="str">'b'</span>, <span class="str">'c'</span>]) <span class="fn">print</span>(item);
+
+<span class="cmt">// while / do-while</span>
+<span class="kw">while</span> (count <span class="op">></span> <span class="num">0</span>) count--;
+<span class="kw">do</span> { <span class="fn">print</span>(n); n--; } <span class="kw">while</span> (n <span class="op">></span> <span class="num">0</span>);
+
+<span class="cmt">// switch (Dart 3+ supports pattern matching!)</span>
+<span class="kw">switch</span> (color) {
+  <span class="kw">case</span> <span class="str">'red'</span>:   <span class="fn">print</span>(<span class="str">'Stop'</span>); <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="str">'green'</span>: <span class="fn">print</span>(<span class="str">'Go'</span>); <span class="kw">break</span>;
+  <span class="kw">default</span>:      <span class="fn">print</span>(<span class="str">'Wait'</span>);
+}
+
+<span class="cmt">// Dart 3+ switch expressions</span>
+<span class="kw">var</span> label = <span class="kw">switch</span> (color) {
+  <span class="str">'red'</span>   <span class="op">=></span> <span class="str">'Stop'</span>,
+  <span class="str">'green'</span> <span class="op">=></span> <span class="str">'Go'</span>,
+  _       <span class="op">=></span> <span class="str">'Wait'</span>,   <span class="cmt">// _ = default wildcard</span>
+};
+</code></pre>
+      </section>
+
+      <section id="functions">
+        <div class="section-header">
+          <div class="section-num">5</div>
+          <h2>Functions</h2>
+        </div>
+        <pre><code><span class="cmt">// Standard function</span>
+<span class="type">int</span> <span class="fn">add</span>(<span class="type">int</span> a, <span class="type">int</span> b) => a + b; <span class="cmt">// arrow shorthand</span>
+
+<span class="cmt">// Named parameters (wrapped in {})</span>
+<span class="kw">void</span> <span class="fn">createUser</span>({<span class="kw">required</span> <span class="type">String</span> name, <span class="type">int</span> age = <span class="num">18</span>}) {
+  <span class="fn">print</span>(<span class="str">'$name ($age)'</span>);
+}
+<span class="fn">createUser</span>(name: <span class="str">'Alice'</span>, age: <span class="num">25</span>);  <span class="cmt">// named call</span>
+<span class="fn">createUser</span>(name: <span class="str">'Bob'</span>);             <span class="cmt">// age defaults to 18</span>
+
+<span class="cmt">// Positional optional parameters (wrapped in [])</span>
+<span class="type">String</span> <span class="fn">greet</span>(<span class="type">String</span> name, [<span class="type">String</span>? title]) {
+  <span class="kw">return</span> title != <span class="kw">null</span> ? <span class="str">'Hello $title $name'</span> : <span class="str">'Hello $name'</span>;
+}
+
+<span class="cmt">// First-class functions</span>
+<span class="type">List</span>&lt;<span class="type">int</span>&gt; nums = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>];
+<span class="kw">var</span> doubled  = nums.<span class="fn">map</span>((n) => n * <span class="num">2</span>).toList();
+<span class="kw">var</span> evens    = nums.<span class="fn">where</span>((n) => n % <span class="num">2</span> == <span class="num">0</span>).toList();
+<span class="kw">var</span> total    = nums.<span class="fn">reduce</span>((a, b) => a + b);
+</code></pre>
+      </section>
+
+      <section id="collections">
+        <div class="section-header">
+          <div class="section-num">6</div>
+          <h2>Collections</h2>
+        </div>
+        <pre><code><span class="cmt">// List (ordered, indexed)</span>
+<span class="type">List</span>&lt;<span class="type">String</span>&gt; fruits = [<span class="str">'apple'</span>, <span class="str">'banana'</span>, <span class="str">'cherry'</span>];
+fruits.<span class="fn">add</span>(<span class="str">'date'</span>);
+fruits.<span class="fn">remove</span>(<span class="str">'banana'</span>);
+fruits.<span class="fn">sort</span>();
+fruits.<span class="fn">length</span>;           <span class="cmt">// 3</span>
+fruits[<span class="num">0</span>];               <span class="cmt">// 'apple'</span>
+fruits.<span class="fn">contains</span>(<span class="str">'date'</span>); <span class="cmt">// true</span>
+
+<span class="cmt">// Map (key-value pairs)</span>
+<span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">int</span>&gt; scores = {<span class="str">'Alice'</span>: <span class="num">95</span>, <span class="str">'Bob'</span>: <span class="num">82</span>};
+scores[<span class="str">'Carol'</span>] = <span class="num">88</span>;
+scores.<span class="fn">containsKey</span>(<span class="str">'Alice'</span>); <span class="cmt">// true</span>
+scores.<span class="fn">keys</span>;                  <span class="cmt">// Iterable of keys</span>
+scores.<span class="fn">entries</span>;              <span class="cmt">// Iterable of MapEntry</span>
+
+<span class="cmt">// Set (unique values)</span>
+<span class="type">Set</span>&lt;<span class="type">int</span>&gt; primes = {<span class="num">2</span>, <span class="num">3</span>, <span class="num">5</span>, <span class="num">7</span>};
+primes.<span class="fn">add</span>(<span class="num">11</span>);
+primes.<span class="fn">add</span>(<span class="num">2</span>);  <span class="cmt">// duplicate — ignored</span>
+
+<span class="cmt">// Collection-if and collection-for</span>
+<span class="kw">var</span> items = [
+  <span class="str">'always'</span>,
+  <span class="kw">if</span> (isLoggedIn) <span class="str">'dashboard'</span>,
+  <span class="kw">for</span> (<span class="kw">var</span> i = <span class="num">0</span>; i <span class="op">&lt;</span> <span class="num">3</span>; i++) <span class="str">'item_<span class="op">$</span>i'</span>,
+];
+
+<span class="cmt">// Spread operator</span>
+<span class="kw">var</span> combined = [...list1, ...list2, <span class="str">'extra'</span>];
+</code></pre>
+      </section>
+
+      <section id="oop">
+        <div class="section-header">
+          <div class="section-num">7</div>
+          <h2>OOP & Classes</h2>
+        </div>
+        <pre><code><span class="kw">class</span> <span class="cls">Animal</span> {
+  <span class="kw">final</span> <span class="type">String</span> name;
+  <span class="type">int</span> _age; <span class="cmt">// _ prefix = private</span>
+
+  <span class="cmt">// Constructor</span>
+  <span class="cls">Animal</span>(<span class="kw">this</span>.name, <span class="kw">this</span>._age); <span class="cmt">// shorthand this.</span>
+
+  <span class="cmt">// Named constructor</span>
+  <span class="cls">Animal</span>.unknown() : name = <span class="str">'Unknown'</span>, _age = <span class="num">0</span>;
+
+  <span class="cmt">// Getter / Setter</span>
+  <span class="type">int</span> <span class="kw">get</span> age => _age;
+  <span class="kw">set</span> <span class="fn">age</span>(<span class="type">int</span> v) { <span class="kw">if</span> (v <span class="op">>=</span> <span class="num">0</span>) _age = v; }
+
+  <span class="kw">void</span> <span class="fn">speak</span>() => <span class="fn">print</span>(<span class="str">'$name makes a sound'</span>);
+
+  <span class="cmt">// Static method</span>
+  <span class="kw">static</span> <span class="kw">void</span> <span class="fn">describe</span>() => <span class="fn">print</span>(<span class="str">'Animals are living beings'</span>);
+}
+
+<span class="kw">class</span> <span class="cls">Dog</span> <span class="kw">extends</span> <span class="cls">Animal</span> {
+  <span class="type">String</span> breed;
+  <span class="cls">Dog</span>(<span class="type">String</span> name, <span class="kw">this</span>.breed) : <span class="kw">super</span>(name, <span class="num">0</span>);
+
+  <span class="kw">@override</span>
+  <span class="kw">void</span> <span class="fn">speak</span>() => <span class="fn">print</span>(<span class="str">'$name barks! 🐶'</span>);
+}
+
+<span class="kw">abstract class</span> <span class="cls">Shape</span> {
+  <span class="type">double</span> <span class="fn">area</span>();          <span class="cmt">// must be implemented</span>
+  <span class="kw">void</span> <span class="fn">describe</span>() => <span class="fn">print</span>(<span class="str">'Area: ${area()}'</span>);
+}
+
+<span class="kw">class</span> <span class="cls">Circle</span> <span class="kw">implements</span> <span class="cls">Shape</span> {
+  <span class="kw">final</span> <span class="type">double</span> radius;
+  <span class="cls">Circle</span>(<span class="kw">this</span>.radius);
+  <span class="kw">@override</span> <span class="type">double</span> <span class="fn">area</span>() => <span class="num">3.14</span> * radius * radius;
+}
+</code></pre>
+      </section>
+
+      <section id="mixins">
+        <div class="section-header">
+          <div class="section-num">8</div>
+          <h2>Mixins & Extensions</h2>
+        </div>
+        <pre><code><span class="cmt">// Mixin — reuse code across class hierarchies</span>
+<span class="kw">mixin</span> <span class="cls">Swimmable</span> {
+  <span class="kw">void</span> <span class="fn">swim</span>() => <span class="fn">print</span>(<span class="str">'Swimming!'</span>);
+}
+<span class="kw">mixin</span> <span class="cls">Flyable</span> {
+  <span class="kw">void</span> <span class="fn">fly</span>() => <span class="fn">print</span>(<span class="str">'Flying!'</span>);
+}
+
+<span class="kw">class</span> <span class="cls">Duck</span> <span class="kw">extends</span> <span class="cls">Animal</span> <span class="kw">with</span> <span class="cls">Swimmable</span>, <span class="cls">Flyable</span> {
+  <span class="cls">Duck</span>() : <span class="kw">super</span>(<span class="str">'Duck'</span>, <span class="num">2</span>);
+}
+<span class="kw">var</span> duck = <span class="cls">Duck</span>();
+duck.<span class="fn">swim</span>(); duck.<span class="fn">fly</span>(); duck.<span class="fn">speak</span>();
+
+<span class="cmt">// Extension — add methods to existing types</span>
+<span class="kw">extension</span> <span class="cls">StringUtils</span> <span class="kw">on</span> <span class="type">String</span> {
+  <span class="type">String</span> <span class="fn">capitalize</span>() =>
+    isEmpty ? <span class="kw">this</span> : <span class="kw">this</span>[<span class="num">0</span>].toUpperCase() + substring(<span class="num">1</span>);
+  <span class="type">bool</span> <span class="kw">get</span> isEmail => contains(<span class="str">'@'</span>);
+}
+
+<span class="fn">print</span>(<span class="str">'hello'</span>.capitalize()); <span class="cmt">// 'Hello'</span>
+<span class="fn">print</span>(<span class="str">'a@b.com'</span>.isEmail);    <span class="cmt">// true</span>
+</code></pre>
+      </section>
+
+      <section id="async">
+        <div class="section-header">
+          <div class="section-num">9</div>
+          <h2>Async & Futures</h2>
+        </div>
+        <pre><code><span class="cmt">// Future — a value that will be available later</span>
+<span class="cls">Future</span>&lt;<span class="type">String</span>&gt; <span class="fn">fetchData</span>() <span class="kw">async</span> {
+  <span class="kw">await</span> <span class="cls">Future</span>.<span class="fn">delayed</span>(<span class="cls">Duration</span>(seconds: <span class="num">2</span>));
+  <span class="kw">return</span> <span class="str">'Data loaded!'</span>;
+}
+
+<span class="kw">void</span> <span class="fn">main</span>() <span class="kw">async</span> {
+  <span class="fn">print</span>(<span class="str">'Fetching...'</span>);
+  <span class="kw">try</span> {
+    <span class="kw">var</span> data = <span class="kw">await</span> <span class="fn">fetchData</span>();
+    <span class="fn">print</span>(data); <span class="cmt">// 'Data loaded!'</span>
+  } <span class="kw">catch</span> (e) {
+    <span class="fn">print</span>(<span class="str">'Error: $e'</span>);
+  }
+}
+
+<span class="cmt">// Future combinators</span>
+<span class="kw">await</span> <span class="cls">Future</span>.<span class="fn">wait</span>([<span class="fn">fetchA</span>(), <span class="fn">fetchB</span>()]); <span class="cmt">// parallel</span>
+<span class="kw">await</span> <span class="cls">Future</span>.<span class="fn">any</span>([<span class="fn">fast</span>(), <span class="fn">slow</span>()]);       <span class="cmt">// first to complete</span>
+
+<span class="cmt">// HTTP request with dart:io / http package</span>
+<span class="kw">import</span> <span class="str">'package:http/http.dart'</span> <span class="kw">as</span> http;
+
+<span class="kw">var</span> url = <span class="cls">Uri</span>.<span class="fn">parse</span>(<span class="str">'https://api.example.com/users'</span>);
+<span class="kw">var</span> res = <span class="kw">await</span> http.<span class="fn">get</span>(url);
+<span class="fn">print</span>(res.body);
+</code></pre>
+      </section>
+
+      <section id="streams">
+        <div class="section-header">
+          <div class="section-num">10</div>
+          <h2>Streams</h2>
+        </div>
+        <p>
+          A Stream is like a Future but delivers multiple values over time —
+          perfect for live data, events, or large datasets.
+        </p>
+        <pre><code><span class="cmt">// Creating a stream</span>
+<span class="cls">Stream</span>&lt;<span class="type">int</span>&gt; <span class="fn">counter</span>(<span class="type">int</span> max) <span class="kw">async</span>* {
+  <span class="kw">for</span> (<span class="type">int</span> i = <span class="num">0</span>; i <span class="op">&lt;=</span> max; i++) {
+    <span class="kw">await</span> <span class="cls">Future</span>.<span class="fn">delayed</span>(<span class="cls">Duration</span>(seconds: <span class="num">1</span>));
+    <span class="kw">yield</span> i;  <span class="cmt">// emit value</span>
+  }
+}
+
+<span class="cmt">// Consuming a stream</span>
+<span class="kw">await</span> <span class="kw">for</span> (<span class="kw">var</span> n <span class="kw">in</span> <span class="fn">counter</span>(<span class="num">5</span>)) {
+  <span class="fn">print</span>(n); <span class="cmt">// 0, 1, 2, 3, 4, 5 (one per second)</span>
+}
+
+<span class="cmt">// Stream methods</span>
+<span class="fn">counter</span>(<span class="num">10</span>)
+  .<span class="fn">where</span>((n) => n % <span class="num">2</span> == <span class="num">0</span>)   <span class="cmt">// filter evens</span>
+  .<span class="fn">map</span>((n) => n * n)            <span class="cmt">// square them</span>
+  .<span class="fn">listen</span>((v) => <span class="fn">print</span>(v));    <span class="cmt">// subscribe</span>
+
+<span class="cmt">// StreamController — create streams manually</span>
+<span class="kw">var</span> controller = <span class="cls">StreamController</span>&lt;<span class="type">String</span>&gt;();
+controller.stream.<span class="fn">listen</span>(<span class="fn">print</span>);
+controller.sink.<span class="fn">add</span>(<span class="str">'event 1'</span>);
+controller.<span class="fn">close</span>();
+</code></pre>
+      </section>
+
+      <section id="errors">
+        <div class="section-header">
+          <div class="section-num">11</div>
+          <h2>Error Handling</h2>
+        </div>
+        <pre><code><span class="cmt">// try / catch / finally</span>
+<span class="kw">try</span> {
+  <span class="kw">var</span> n = <span class="type">int</span>.parse(<span class="str">'not a number'</span>);
+} <span class="kw">on</span> <span class="cls">FormatException</span> <span class="kw">catch</span> (e) {
+  <span class="fn">print</span>(<span class="str">'Format error: $e'</span>); <span class="cmt">// specific error type</span>
+} <span class="kw">catch</span> (e, stackTrace) {
+  <span class="fn">print</span>(<span class="str">'Unknown error: $e'</span>);  <span class="cmt">// catch-all</span>
+} <span class="kw">finally</span> {
+  <span class="fn">print</span>(<span class="str">'Always runs'</span>);
+}
+
+<span class="cmt">// Custom exceptions</span>
+<span class="kw">class</span> <span class="cls">AuthException</span> <span class="kw">implements</span> <span class="cls">Exception</span> {
+  <span class="kw">final</span> <span class="type">String</span> message;
+  <span class="cls">AuthException</span>(<span class="kw">this</span>.message);
+  <span class="kw">@override</span> <span class="type">String</span> <span class="fn">toString</span>() => <span class="str">'AuthException: $message'</span>;
+}
+
+<span class="kw">throw</span> <span class="cls">AuthException</span>(<span class="str">'Token expired'</span>);
+</code></pre>
+      </section>
+
+      <section id="generics">
+        <div class="section-header">
+          <div class="section-num">12</div>
+          <h2>Generics</h2>
+        </div>
+        <pre><code><span class="cmt">// Generic class</span>
+<span class="kw">class</span> <span class="cls">Box</span>&lt;<span class="type">T</span>&gt; {
+  <span class="type">T</span> value;
+  <span class="cls">Box</span>(<span class="kw">this</span>.value);
+  <span class="type">T</span> <span class="fn">get</span>() => value;
+  <span class="kw">void</span> <span class="fn">set</span>(<span class="type">T</span> v) => value = v;
+}
+
+<span class="kw">var</span> intBox    = <span class="cls">Box</span>&lt;<span class="type">int</span>&gt;(<span class="num">42</span>);
+<span class="kw">var</span> stringBox = <span class="cls">Box</span>&lt;<span class="type">String</span>&gt;(<span class="str">'hello'</span>);
+
+<span class="cmt">// Generic function</span>
+<span class="type">T</span> <span class="fn">first</span>&lt;<span class="type">T</span>&gt;(<span class="type">List</span>&lt;<span class="type">T</span>&gt; list) => list.first;
+<span class="fn">first</span>([<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>]);        <span class="cmt">// inferred as int</span>
+<span class="fn">first</span>([<span class="str">'a'</span>,<span class="str">'b'</span>]);     <span class="cmt">// inferred as String</span>
+
+<span class="cmt">// Result type pattern (common in Dart)</span>
+<span class="kw">sealed class</span> <span class="cls">Result</span>&lt;<span class="type">T</span>&gt; {}
+<span class="kw">class</span> <span class="cls">Success</span>&lt;<span class="type">T</span>&gt; <span class="kw">extends</span> <span class="cls">Result</span>&lt;<span class="type">T</span>&gt; { <span class="kw">final</span> <span class="type">T</span> data; <span class="cls">Success</span>(<span class="kw">this</span>.data); }
+<span class="kw">class</span> <span class="cls">Failure</span>&lt;<span class="type">T</span>&gt; <span class="kw">extends</span> <span class="cls">Result</span>&lt;<span class="type">T</span>&gt; { <span class="kw">final</span> <span class="type">String</span> err; <span class="cls">Failure</span>(<span class="kw">this</span>.err); }
+</code></pre>
+      </section>
+
+      <div class="guide-nav">
+        <a href="/Users/macbookprom1/Documents/Personal/FlutterDart/index.htmll"
+          >← Back to Hub</a
+        >
+        <div style="display: flex; gap: 12px">
+          <a href="flutter-guide.html">🐦 Flutter Guide →</a>
+          <a href="api-guide.html">🔌 API Guide →</a>
+        </div>
+      </div>
+    </div>
+    <footer>
+      Dart Complete Guide &nbsp;·&nbsp;<a
+        href="/Users/macbookprom1/Documents/Personal/FlutterDart/index.html"
+        >Hub</a
+      ><a href="flutter-guide.html">Flutter</a><a href="api-guide.html">API</a>
+    </footer>
+  </body>
+</html>
